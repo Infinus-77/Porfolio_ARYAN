@@ -137,28 +137,33 @@ background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%
 .skill-row .pct{font-family:var(--font-label);font-size:.75rem;color:var(--ferrari-gold);width:90px;text-align:right;flex-shrink:0}
 /* PROJECTS */
 #projects{position:relative;padding:5rem 2rem;z-index:1}
-.proj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem;max-width:1100px;margin:0 auto}
-.proj-featured{background:#0D0D0D;border-left:4px solid var(--ferrari-red);position:relative;overflow:hidden;transition:transform .3s,box-shadow .3s}
-.proj-featured:hover{transform:perspective(800px) rotateY(-3deg) translateY(-4px);box-shadow:0 20px 50px rgba(220,0,0,.25)}
-.proj-tricolour{height:4px;background:linear-gradient(90deg,#DC0000 33%,#fff 33% 66%,#009246 66%)}
-.proj-badge{position:absolute;top:1rem;right:1rem;border:1.5px solid var(--ferrari-gold);color:var(--ferrari-gold);font-family:var(--font-label);font-size:.7rem;padding:.2rem .6rem;z-index:2}
-.proj-card{background:#0D0D0D;border-top:3px solid var(--ferrari-red);padding:1.2rem;transition:transform .2s,box-shadow .2s}
-.proj-card:hover{transform:translateY(-4px);box-shadow:0 10px 30px rgba(220,0,0,.15)}
-.proj-inner{padding:1.5rem}
-.proj-inner h3{font-family:var(--font-display);font-size:1.3rem;color:#fff;margin-bottom:.6rem}
-.proj-inner .desc{font-family:var(--font-body);font-size:.82rem;color:rgba(255,255,255,.6);margin-bottom:1rem}
-.tyre-tags{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem}
-.tyre-tag{font-family:var(--font-label);font-size:.7rem;padding:.2rem .5rem;border-radius:12px;border:1px solid}
+.proj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:2.5rem;max-width:1100px;margin:0 auto}
+.proj-card, .proj-featured{height:420px;perspective:1000px;background:transparent;border:none;padding:0;overflow:visible}
+.proj-inner{position:relative;width:100%;height:100%;transition:transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);transform-style:preserve-3d;cursor:pointer}
+.proj-card:hover .proj-inner, .proj-featured:hover .proj-inner{transform:rotateY(180deg)}
+.proj-front, .proj-back{position:absolute;width:100%;height:100%;backface-visibility:hidden;border-radius:4px;overflow:hidden;display:flex;flex-direction:column}
+.proj-front{background:#0D0D0D;z-index:2}
+.proj-featured .proj-front{border-left:4px solid var(--ferrari-red)}
+.proj-card .proj-front{border-top:3px solid var(--ferrari-red)}
+.proj-back{background:#111;color:#fff;transform:rotateY(180deg);z-index:1;padding:2rem;border:1px solid var(--ferrari-red);justify-content:center}
+.proj-img{width:100%;height:100%;overflow:hidden}
+.proj-img img{width:100%;height:100%;object-fit:cover}
+.proj-badge{position:absolute;bottom:1.5rem;right:1.5rem;border:1.5px solid var(--ferrari-gold);color:var(--ferrari-gold);font-family:var(--font-label);font-size:.7rem;padding:.2rem .6rem;z-index:3;background:rgba(13,13,13,0.8);backdrop-filter:blur(4px)}
+.proj-inner h3{font-family:var(--font-display);font-size:1.5rem;color:var(--ferrari-red);margin-bottom:1rem;text-transform:uppercase}
+.proj-inner .desc{font-family:var(--font-body);font-size:.9rem;color:rgba(255,255,255,.8);margin-bottom:1.5rem;line-height:1.6}
+.tyre-tags{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.5rem}
+.tyre-tag{font-family:var(--font-label);font-size:.7rem;padding:.3rem .7rem;border-radius:12px;border:1px solid}
 .tyre-soft{color:#DC0000;border-color:#DC0000}
 .tyre-med{color:#FFD700;border-color:#FFD700}
 .tyre-hard{color:#ccc;border-color:#ccc}
-.proj-stats{font-family:var(--font-label);font-size:.78rem;color:rgba(255,255,255,.5);margin-bottom:1rem}
-.proj-btns{display:flex;gap:.8rem}
-.proj-btn{font-family:var(--font-display);font-size:.7rem;padding:.5rem 1.2rem;cursor:pointer;letter-spacing:.05em;transition:all .2s;text-decoration:none}
-.proj-btn-outline{background:transparent;color:var(--ferrari-red);border:1.5px solid var(--ferrari-red)}
-.proj-btn-outline:hover{background:rgba(220,0,0,.1)}
-.proj-btn-fill{background:var(--ferrari-red);color:#fff;border:none}
-.proj-btn-fill:hover{background:#ff1a1a}
+.proj-stats{font-family:var(--font-label);font-size:.85rem;color:var(--ferrari-gold);margin-bottom:1.5rem}
+.proj-btns{display:flex;gap:1rem}
+.proj-btn{font-family:var(--font-display);font-size:.75rem;padding:.7rem 1rem;cursor:pointer;letter-spacing:.05em;transition:all .3s;text-decoration:none;text-align:center;flex:1;display:flex;align-items:center;justify-content:center;gap:0.5rem}
+.proj-btn i{font-size:0.9rem}
+.proj-btn-outline{background:transparent;color:#fff;border:1.5px solid #fff}
+.proj-btn-outline:hover{background:#fff;color:#000}
+.proj-btn-fill{background:var(--ferrari-red);color:#fff;border:1.5px solid var(--ferrari-red)}
+.proj-btn-fill:hover{background:transparent;color:var(--ferrari-red)}
 /* ERA 3 */
 .era3-bg{position:relative;background:linear-gradient(180deg,#080808,#00190F);overflow:hidden}
 .era3-bg::before{content:'';position:absolute;top:0;left:0;width:100%;height:100%;
@@ -326,7 +331,7 @@ footer .left,footer .right{font-family:var(--font-label);font-size:.72rem;color:
     </div>
     
     <div class="hero-image-card">
-      <img src="https://via.placeholder.com/400x500/111/FFE500?text=YOUR+PHOTO+HERE" alt="Aryan Naik">
+      <img src="aryan.jpeg" alt="Aryan Naik">
     </div>
   </div>
 </section>
@@ -335,7 +340,7 @@ footer .left,footer .right{font-family:var(--font-label);font-size:.72rem;color:
 <section id="stack" class="era1-head">
   <div class="stack-bg-glow"></div>
   <div class="section-head reveal">
-    <h2>#01 // RENAULT ERA — THE CONSTRUCTOR'S ARSENAL</h2>
+    <h2>THE CONSTRUCTOR'S ARSENAL</h2>
     <div class="line"></div>
     <div class="tagline">"Back-to-back championships don't happen by accident."</div>
   </div>
@@ -458,7 +463,7 @@ footer .left,footer .right{font-family:var(--font-label);font-size:.72rem;color:
   <!-- JOURNEY -->
   <section id="journey" class="era2-head">
     <div class="section-head reveal">
-      <h2>#02 // FERRARI ERA — RACE HISTORY</h2>
+      <h2> RACE HISTORY</h2>
       <div class="line"></div>
       <div class="tagline">"Five seasons. Three runner-up titles. Zero compromises."</div>
     </div>
@@ -536,7 +541,7 @@ footer .left,footer .right{font-family:var(--font-label);font-size:.72rem;color:
   <!-- SKILLS -->
   <section id="skills" class="era2-head">
     <div class="section-head reveal">
-      <h2>#03 // FERRARI ERA — TELEMETRY READOUT</h2>
+      <h2>TELEMETRY READOUT</h2>
       <div class="line"></div>
       <div class="tagline">"Precision data. Every millisecond accounted for."</div>
     </div>
@@ -592,54 +597,84 @@ footer .left,footer .right{font-family:var(--font-label);font-size:.72rem;color:
   <!-- PROJECTS -->
   <section id="projects" class="era2-head">
     <div class="section-head reveal">
-      <h2>#04 // FERRARI ERA — PODIUM FINISHES</h2>
+      <h2>FERRARI ERA — PODIUM FINISHES</h2>
       <div class="line"></div>
       <div class="tagline">"Close to the limit. Every single race."</div>
     </div>
 
     <div class="proj-grid reveal">
       <div class="proj-featured">
-        <div class="proj-tricolour"></div>
-        <div class="proj-badge">P1 &middot; FASTEST LAP</div>
-        <div style="position:absolute;top:0;left:0;transform:rotate(-45deg) translate(-30%,-30%);background:#DC0000;width:80px;height:80px;clip-path:polygon(0 0,100% 0,0 100%);"></div>
-        <div class="proj-inner" style="margin-top:2rem;">
-          <h3>PitStop API</h3>
-          <p class="desc">Real-time race analytics REST API with live data streaming.</p>
-          <div class="tyre-tags">
-            <span class="tyre-tag tyre-soft">🔴 Node.js</span>
-            <span class="tyre-tag tyre-med">🟡 Express</span>
-            <span class="tyre-tag tyre-hard">⚪ MongoDB</span>
+        <div class="proj-inner">
+          <div class="proj-front">
+            <div class="proj-img">
+              <img src="pitstop.png" alt="PitStop API Preview">
+            </div>
+            <div class="proj-tricolour"></div>
+            <div class="proj-badge">P1 &middot; FASTEST LAP</div>
           </div>
-          <div class="proj-stats">⭐ 240 &nbsp;&middot;&nbsp; 🍴 45 &nbsp;&middot;&nbsp; STATUS: LIVE ✓</div>
-          <div class="proj-btns">
-            <a href="#" class="proj-btn proj-btn-outline">RACE REPLAY</a>
-            <a href="#" class="proj-btn proj-btn-fill">LIVE STREAM</a>
+          <div class="proj-back">
+            <h3>PitStop API</h3>
+            <p class="desc">Real-time race analytics REST API with live data streaming. Features high-frequency updates and neural-link telemetry.</p>
+            <div class="tyre-tags">
+              <span class="tyre-tag tyre-soft">🔴 Node.js</span>
+              <span class="tyre-tag tyre-med">🟡 Express</span>
+              <span class="tyre-tag tyre-hard">⚪ MongoDB</span>
+            </div>
+            <div class="proj-stats">⭐ 240 &nbsp;&middot;&nbsp; 🍴 45 &nbsp;&middot;&nbsp; STATUS: LIVE ✓</div>
+            <div class="proj-btns">
+              <a href="#" class="proj-btn proj-btn-outline">RACE REPLAY</a>
+              <a href="#" class="proj-btn proj-btn-fill"><i class="fab fa-github"></i> GITHUB</a>
+            </div>
           </div>
         </div>
       </div>
 
       <div class="proj-card">
         <div class="proj-inner">
-          <h3>GridSync</h3>
-          <p class="desc">Real-time grid positioning and telemetry synchronization dashboard.</p>
-          <div class="tyre-tags">
-            <span class="tyre-tag tyre-soft">🔴 React</span>
-            <span class="tyre-tag tyre-med">🟡 WebSockets</span>
-            <span class="tyre-tag tyre-hard">⚪ Redis</span>
+          <div class="proj-front">
+            <div class="proj-img">
+              <img src="gridsync.png" alt="GridSync Preview">
+            </div>
+            <div class="proj-badge">STATUS: LIVE</div>
           </div>
-          <div class="proj-stats">⭐ 87 &nbsp;&middot;&nbsp; STATUS: LIVE ✓</div>
+          <div class="proj-back">
+            <h3>GridSync</h3>
+            <p class="desc">Real-time grid positioning and telemetry synchronization dashboard. Built for precision monitoring and team collaboration.</p>
+            <div class="tyre-tags">
+              <span class="tyre-tag tyre-soft">🔴 React</span>
+              <span class="tyre-tag tyre-med">🟡 WebSockets</span>
+              <span class="tyre-tag tyre-hard">⚪ Redis</span>
+            </div>
+            <div class="proj-stats">⭐ 87 &nbsp;&middot;&nbsp; STATUS: LIVE ✓</div>
+            <div class="proj-btns">
+              <a href="#" class="proj-btn proj-btn-outline">RACE REPLAY</a>
+              <a href="#" class="proj-btn proj-btn-fill"><i class="fab fa-github"></i> GITHUB</a>
+            </div>
+          </div>
         </div>
       </div>
 
       <div class="proj-card">
         <div class="proj-inner">
-          <h3>LapLogger</h3>
-          <p class="desc">Offline-first mobile web app for track day enthusiasts to log laps.</p>
-          <div class="tyre-tags">
-            <span class="tyre-tag tyre-soft">🔴 Python</span>
-            <span class="tyre-tag tyre-hard">⚪ SQLite</span>
+          <div class="proj-front">
+            <div class="proj-img">
+              <img src="laplogger.png" alt="LapLogger Preview">
+            </div>
+            <div class="proj-badge">STATUS: STABLE</div>
           </div>
-          <div class="proj-stats">⭐ 43 &nbsp;&middot;&nbsp; STATUS: STABLE</div>
+          <div class="proj-back">
+            <h3>LapLogger</h3>
+            <p class="desc">Offline-first mobile web app for track day enthusiasts to log laps. GPS-based timing with automated sector detection.</p>
+            <div class="tyre-tags">
+              <span class="tyre-tag tyre-soft">🔴 Python</span>
+              <span class="tyre-tag tyre-hard">⚪ SQLite</span>
+            </div>
+            <div class="proj-stats">⭐ 43 &nbsp;&middot;&nbsp; STATUS: STABLE</div>
+            <div class="proj-btns">
+              <a href="#" class="proj-btn proj-btn-outline">RACE REPLAY</a>
+              <a href="#" class="proj-btn proj-btn-fill"><i class="fab fa-github"></i> GITHUB</a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -678,7 +713,7 @@ footer .left,footer .right{font-family:var(--font-label);font-size:.72rem;color:
   <!-- CERTS -->
   <section id="certs" class="era3-head">
     <div class="section-head reveal">
-      <h2>#05 // ASTON MARTIN ERA — TROPHY CABINET</h2>
+      <h2>TROPHY CABINET</h2>
       <div class="line"></div>
       <div class="tagline">"100 podiums. Still building the legacy."</div>
     </div>
@@ -760,7 +795,7 @@ footer .left,footer .right{font-family:var(--font-label);font-size:.72rem;color:
     </div>
 
     <div class="section-head reveal">
-      <h2>#06 // ASTON MARTIN ERA — RADIO CHECK</h2>
+      <h2>RADIO CHECK</h2>
       <div class="line"></div>
       <div class="tagline">"Box, box, box! — Let's build something together."</div>
     </div>
