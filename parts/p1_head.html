@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Alex Velocity | Full Stack Developer — F1 Portfolio</title>
+<meta name="description" content="Alex Velocity — Full Stack Developer portfolio with an F1 racing theme. React, Node.js, Python, AWS.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@400;700&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<style>
+:root{
+--font-display:'Orbitron',sans-serif;--font-body:'JetBrains Mono',monospace;--font-label:'Rajdhani',sans-serif;
+--color-base:#070707;--color-grain:rgba(255,255,255,0.03);
+--renault-yellow:#FFE500;--renault-blue:#87CEEB;--renault-chassis:#111;
+--ferrari-red:#DC0000;--ferrari-gold:#FFD700;--ferrari-black:#111;
+--ferrari-tricolour-r:#DC0000;--ferrari-tricolour-w:#FFF;--ferrari-tricolour-g:#009246;
+--am-green:#00594F;--am-lime:#A3D977;--am-blue:#4B9CD3;--am-gold:#C9A84C;--am-carbon:#1A1A1A;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--color-base);color:#fff;font-family:var(--font-body);overflow-x:hidden;line-height:1.6}
+body::after{content:'';position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9998;opacity:0.04;
+background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.65' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .6s ease,transform .6s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.checkered{width:100%;height:8px;background:repeating-linear-gradient(90deg,#fff 0px,#fff 8px,#000 8px,#000 16px)}
+/* NAV */
+#nav{position:fixed;top:0;width:100%;z-index:9999;height:52px;background:rgba(5,5,5,0.93);backdrop-filter:blur(14px);display:flex;align-items:center;padding:0 1.5rem;border-bottom:2px solid transparent;background-clip:padding-box}
+#nav::after{content:'';position:absolute;bottom:0;left:0;width:100%;height:2px;background:linear-gradient(90deg,#FFE500,#DC0000,#00594F);background-size:200% 100%;animation:navGrad 4s linear infinite}
+@keyframes navGrad{0%{background-position:0% 0}100%{background-position:200% 0}}
+.nav-left{display:flex;align-items:center;gap:.6rem;flex-shrink:0}
+.nav-badge{width:32px;height:36px}
+.nav-logo{font-family:var(--font-display);color:var(--renault-yellow);font-size:.85rem;font-weight:700;letter-spacing:.05em}
+.nav-center{display:flex;gap:1.2rem;margin:0 auto;align-items:center}
+.nav-center a{font-family:var(--font-label);font-size:.75rem;color:rgba(255,255,255,.6);text-decoration:none;letter-spacing:.1em;padding:.2rem 0;border-bottom:2px solid transparent;transition:color .2s,border-color .2s}
+.nav-center a.active,.nav-center a:hover{color:var(--renault-yellow);border-bottom-color:var(--renault-yellow)}
+.nav-right{display:flex;align-items:center;gap:.8rem;flex-shrink:0}
+.rpm-bar{width:60px;height:6px;background:#1a1a1a;border-radius:3px;overflow:hidden}
+.rpm-fill{height:100%;width:0%;border-radius:3px;animation:rpmCycle 2s ease-in-out infinite}
+@keyframes rpmCycle{0%{width:0;background:#FFE500}33%{width:60%;background:#FFE500}50%{width:80%;background:#DC0000}66%{width:100%;background:#DC0000}83%{width:60%;background:#00594F}100%{width:0;background:#00594F}}
+.live-dot{width:6px;height:6px;background:#0f0;border-radius:50%;animation:blink 1.5s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+.live-text{font-family:var(--font-label);font-size:.65rem;color:#0f0;letter-spacing:.1em}
+.hamburger{display:none;background:none;border:none;color:#fff;font-size:1.4rem;cursor:pointer}
+.mobile-menu{display:none;position:fixed;top:52px;left:0;width:100%;background:rgba(5,5,5,.97);flex-direction:column;padding:1rem;gap:.5rem;z-index:9998}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-family:var(--font-label);color:rgba(255,255,255,.7);text-decoration:none;padding:.6rem 1rem;font-size:.9rem;letter-spacing:.1em}
+/* HERO */
+#era{position:relative;height:100vh;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.speed-line{position:absolute;height:1px;background:rgba(255,229,0,.12);transform:rotate(-15deg);animation:speedLine 3s linear infinite}
+@keyframes speedLine{0%{transform:rotate(-15deg) translateX(-100vw)}100%{transform:rotate(-15deg) translateX(100vw)}}
+.hero-car-svg{position:absolute;right:-5%;bottom:0;width:65vw;opacity:.07;z-index:1;pointer-events:none}
+.hero-circuit{position:absolute;bottom:20px;right:20px;width:180px;opacity:.06;z-index:1;pointer-events:none}
+#hero-badge{position:absolute;top:15%;left:5%;width:200px;height:200px;z-index:3}
+.hero-content{position:relative;z-index:4;text-align:center;max-width:800px;padding:0 1.5rem}
+.hero-tag{font-family:var(--font-label);font-size:.68rem;letter-spacing:.2em;color:var(--renault-blue);margin-bottom:.8rem}
+.hero-name{font-family:var(--font-display);font-size:clamp(3rem,8vw,7rem);color:#fff;font-weight:900;position:relative;display:inline-block}
+.hero-name::before,.hero-name::after{content:attr(data-text);position:absolute;top:0;left:0;width:100%;height:100%;overflow:hidden}
+.hero-name::before{color:var(--renault-yellow);z-index:-1;animation:glitch1 4s infinite}
+.hero-name::after{color:var(--renault-blue);z-index:-2;animation:glitch2 4s infinite}
+@keyframes glitch1{0%,92%,100%{clip-path:inset(0 0 0 0);transform:none}93%{clip-path:inset(20% 0 40% 0);transform:translateX(3px)}96%{clip-path:inset(60% 0 10% 0);transform:translateX(-3px)}98%{clip-path:inset(40% 0 30% 0);transform:translateX(2px)}}
+@keyframes glitch2{0%,92%,100%{clip-path:inset(0 0 0 0);transform:none}94%{clip-path:inset(50% 0 20% 0);transform:translateX(-3px)}97%{clip-path:inset(10% 0 60% 0);transform:translateX(3px)}99%{clip-path:inset(30% 0 40% 0);transform:translateX(-2px)}}
+.typewriter{font-family:var(--font-body);font-size:clamp(.9rem,2vw,1.2rem);color:var(--renault-yellow);min-height:1.8em;margin:.8rem 0}
+.typewriter .cursor{animation:cursorBlink .7s infinite}
+@keyframes cursorBlink{0%,100%{opacity:1}50%{opacity:0}}
+.hero-telemetry{font-family:var(--font-label);font-size:.85rem;color:rgba(255,229,0,.6);margin:.4rem 0}
+.hero-location{font-family:var(--font-label);font-size:.9rem;color:#fff;margin:.4rem 0}
+.hero-ctas{display:flex;gap:1rem;justify-content:center;margin-top:2rem;flex-wrap:wrap}
+.btn-primary{background:var(--renault-yellow);color:#070707;font-family:var(--font-display);font-weight:700;font-size:.8rem;padding:.8rem 2rem;border:none;cursor:pointer;transition:all .2s;letter-spacing:.05em}
+.btn-primary:hover{background:#fff;transform:translateY(-2px);box-shadow:0 8px 30px rgba(255,229,0,.4)}
+.btn-outline{background:transparent;color:var(--renault-yellow);font-family:var(--font-display);font-size:.8rem;padding:.8rem 2rem;border:1.5px solid var(--renault-yellow);cursor:pointer;transition:all .2s;letter-spacing:.05em}
+.btn-outline:hover{background:rgba(255,229,0,.1)}
+/* TECH STACK */
+#stack{position:relative;padding:5rem 2rem;overflow:hidden}
+.section-head{margin-bottom:2rem}
+.section-head h2{font-family:var(--font-display);font-size:clamp(1.2rem,3vw,1.8rem);margin-bottom:.5rem}
+.section-head .line{width:60px;height:2px;margin-bottom:1rem}
+.section-head .tagline{font-family:var(--font-body);font-size:.85rem;color:rgba(255,255,255,.5);font-style:italic}
+.era1-head h2{color:var(--renault-yellow)}
+.era1-head .line{background:var(--renault-yellow)}
+.stack-bg-glow{position:absolute;top:0;left:0;width:60%;height:60%;background:radial-gradient(circle,rgba(135,206,235,.04),transparent);pointer-events:none;z-index:0}
+.stack-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.2rem;position:relative;z-index:1}
+.stack-card{background:#0D0D0D;border-top:3px solid var(--renault-yellow);padding:1.2rem;transition:transform .2s,box-shadow .2s;cursor:default}
+.stack-card:hover{transform:rotate(-1.5deg) scale(1.03);box-shadow:0 0 25px rgba(255,229,0,.2)}
+.stack-card .comp{font-family:var(--font-label);font-size:.62rem;color:var(--renault-blue);letter-spacing:.15em;margin-bottom:.4rem}
+.stack-card .tech{font-family:var(--font-display);font-size:1rem;color:#fff;margin-bottom:.8rem}
+.stack-card .cat{display:inline-block;font-family:var(--font-label);font-size:.7rem;color:var(--renault-blue);background:rgba(135,206,235,.12);padding:.2rem .6rem;clip-path:polygon(0 0,100% 0,95% 100%,0% 100%)}
+/* ERA 2 SECTIONS */
+.era2-bg{position:relative;background:#080808}
+.era2-bg::before{content:'';position:absolute;left:0;top:0;width:200px;height:100%;background:linear-gradient(90deg,rgba(220,0,0,.08),transparent);pointer-events:none;z-index:0}
+.era2-bg::after{content:'';position:absolute;right:0;top:0;width:200px;height:100%;background:linear-gradient(-90deg,rgba(220,0,0,.08),transparent);pointer-events:none;z-index:0}
+.era2-car-svg{position:absolute;left:-2%;top:50%;transform:translateY(-50%);width:55vw;opacity:.06;z-index:0;pointer-events:none}
+.era2-head h2{color:var(--ferrari-red)}
+.era2-head .line{background:var(--ferrari-red)}
+/* JOURNEY */
+#journey{position:relative;padding:5rem 2rem;z-index:1}
+.timeline{position:relative;max-width:900px;margin:0 auto}
+.timeline::before{content:'';position:absolute;left:50%;top:0;width:2px;height:100%;background:var(--ferrari-red);transform:translateX(-50%)}
+.tl-item{position:relative;width:44%;margin-bottom:2.5rem}
+.tl-item:nth-child(odd){margin-left:0}
+.tl-item:nth-child(even){margin-left:56%}
+.tl-node{position:absolute;top:1rem;width:14px;height:14px;background:var(--ferrari-gold);border:2px solid var(--ferrari-red);border-radius:50%;z-index:2}
+.tl-item:nth-child(odd) .tl-node{right:-7%;transform:translateX(50%)}
+.tl-item:nth-child(even) .tl-node{left:-7%;transform:translateX(-50%)}
+.tl-card{background:#0D0D0D;border-top:3px solid var(--ferrari-red);overflow:hidden;padding:0}
+.tl-tricolour{height:3px;width:100%;background:linear-gradient(90deg,#DC0000 33%,#fff 33% 66%,#009246 66%)}
+.tl-card-inner{padding:1.2rem}
+.tl-card .gp-tag{font-family:var(--font-label);font-size:.62rem;color:var(--ferrari-gold);letter-spacing:.1em}
+.tl-card h3{font-family:var(--font-display);font-size:1rem;color:#fff;margin:.3rem 0}
+.tl-card p{font-family:var(--font-body);font-size:.8rem;color:rgba(255,255,255,.6)}
+/* SKILLS */
+#skills{position:relative;padding:5rem 2rem;z-index:1}
+.skills-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;max-width:1000px;margin:0 auto}
+.tacho-container{display:flex;justify-content:center;align-items:center}
+.tacho-svg{width:260px;height:260px}
+.skills-bars{display:flex;flex-direction:column;gap:1rem;justify-content:center}
+.skill-group-label{font-family:var(--font-label);font-size:.65rem;color:var(--ferrari-gold);letter-spacing:.15em;margin-top:1rem;margin-bottom:.3rem}
+.skill-row{display:flex;align-items:center;gap:.8rem}
+.skill-row .name{font-family:var(--font-display);font-size:.75rem;color:#fff;width:120px;flex-shrink:0}
+.skill-row .track{flex:1;height:6px;background:#1a1a1a;border-radius:3px;overflow:hidden}
+.skill-row .fill{height:100%;width:0;background:var(--ferrari-red);border-radius:3px;transition:width 1.2s ease-out}
+.skill-row .fill.glow{box-shadow:2px 0 8px var(--ferrari-gold)}
+.skill-row .pct{font-family:var(--font-label);font-size:.75rem;color:var(--ferrari-gold);width:90px;text-align:right;flex-shrink:0}
+/* PROJECTS */
+#projects{position:relative;padding:5rem 2rem;z-index:1}
+.proj-grid{display:grid;grid-template-columns:1.6fr 1fr;grid-template-rows:auto auto;gap:1.2rem;max-width:1100px;margin:0 auto}
+.proj-featured{grid-row:1/3;background:#0D0D0D;border-left:4px solid var(--ferrari-red);position:relative;overflow:hidden;transition:transform .3s,box-shadow .3s}
+.proj-featured:hover{transform:perspective(800px) rotateY(-3deg) translateY(-4px);box-shadow:0 20px 50px rgba(220,0,0,.25)}
+.proj-tricolour{height:4px;background:linear-gradient(90deg,#DC0000 33%,#fff 33% 66%,#009246 66%)}
+.proj-badge{position:absolute;top:1rem;right:1rem;border:1.5px solid var(--ferrari-gold);color:var(--ferrari-gold);font-family:var(--font-label);font-size:.7rem;padding:.2rem .6rem;z-index:2}
+.proj-card{background:#0D0D0D;border-top:3px solid var(--ferrari-red);padding:1.2rem;transition:transform .2s,box-shadow .2s}
+.proj-card:hover{transform:translateY(-4px);box-shadow:0 10px 30px rgba(220,0,0,.15)}
+.proj-inner{padding:1.5rem}
+.proj-inner h3{font-family:var(--font-display);font-size:1.3rem;color:#fff;margin-bottom:.6rem}
+.proj-inner .desc{font-family:var(--font-body);font-size:.82rem;color:rgba(255,255,255,.6);margin-bottom:1rem}
+.tyre-tags{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem}
+.tyre-tag{font-family:var(--font-label);font-size:.7rem;padding:.2rem .5rem;border-radius:12px;border:1px solid}
+.tyre-soft{color:#DC0000;border-color:#DC0000}
+.tyre-med{color:#FFD700;border-color:#FFD700}
+.tyre-hard{color:#ccc;border-color:#ccc}
+.proj-stats{font-family:var(--font-label);font-size:.78rem;color:rgba(255,255,255,.5);margin-bottom:1rem}
+.proj-btns{display:flex;gap:.8rem}
+.proj-btn{font-family:var(--font-display);font-size:.7rem;padding:.5rem 1.2rem;cursor:pointer;letter-spacing:.05em;transition:all .2s;text-decoration:none}
+.proj-btn-outline{background:transparent;color:var(--ferrari-red);border:1.5px solid var(--ferrari-red)}
+.proj-btn-outline:hover{background:rgba(220,0,0,.1)}
+.proj-btn-fill{background:var(--ferrari-red);color:#fff;border:none}
+.proj-btn-fill:hover{background:#ff1a1a}
+/* ERA 3 */
+.era3-bg{position:relative;background:linear-gradient(180deg,#080808,#00190F);overflow:hidden}
+.era3-bg::before{content:'';position:absolute;top:0;left:0;width:100%;height:100%;
+background:repeating-linear-gradient(45deg,rgba(255,255,255,.015) 0px,rgba(255,255,255,.015) 1px,transparent 1px,transparent 8px),
+repeating-linear-gradient(-45deg,rgba(255,255,255,.015) 0px,rgba(255,255,255,.015) 1px,transparent 1px,transparent 8px);pointer-events:none;z-index:0}
+.era3-car-svg{position:absolute;right:-3%;top:50%;transform:translateY(-50%);width:60vw;opacity:.07;z-index:0;pointer-events:none}
+.era3-circuit{position:absolute;bottom:8%;left:3%;width:180px;opacity:.05;pointer-events:none;z-index:0}
+.era3-head h2{color:var(--am-lime)}
+.era3-head .line{background:var(--am-lime)}
+/* CERTS */
+#certs{position:relative;padding:5rem 2rem;z-index:1}
+.cert-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.2rem}
+.cert-card{background:#0A2E28;border-top:3px solid var(--am-gold);padding:1.5rem;clip-path:polygon(0 0,100% 0,100% 85%,85% 100%,0 100%);transition:all .25s ease;cursor:default}
+.cert-card:hover{box-shadow:0 0 30px rgba(163,217,119,.15);border-top-color:var(--am-lime);transform:translateY(-4px)}
+.cert-laurel{width:32px;height:32px;margin-bottom:.6rem}
+.cert-card h3{font-family:var(--font-display);font-size:.9rem;color:#fff;margin-bottom:.4rem}
+.cert-card .issuer{font-family:var(--font-label);font-size:.78rem;color:var(--am-lime)}
+.cert-card .season{font-family:var(--font-label);font-size:.72rem;color:rgba(255,255,255,.4);margin-bottom:.8rem}
+.cert-badge{display:inline-block;font-family:var(--font-label);font-size:.68rem;padding:.2rem .6rem;border-radius:2px;font-weight:600}
+.badge-platinum{background:var(--am-lime);color:#070707}
+.badge-gold{background:var(--am-gold);color:#070707}
+.badge-silver{background:var(--am-blue);color:#fff}
+/* CONTACT */
+#contact{position:relative;padding:5rem 2rem;z-index:1}
+.contact-garage{position:absolute;bottom:0;left:0;right:0;height:200px;opacity:.04;z-index:0;pointer-events:none;display:flex;align-items:flex-end;justify-content:center;gap:5%}
+.terminal-form{position:relative;z-index:1;max-width:600px;margin:0 auto}
+.form-row{display:flex;align-items:center;border-bottom:1px solid rgba(163,217,119,.2);margin-bottom:1rem;padding:.5rem 0}
+.form-row .prompt{font-family:var(--font-label);color:var(--am-lime);width:1.5rem;flex-shrink:0}
+.form-row .label{font-family:var(--font-body);color:rgba(163,217,119,.5);width:140px;flex-shrink:0;font-size:.82rem}
+.form-row input,.form-row textarea{background:transparent;border:none;outline:none;color:#fff;font-family:var(--font-body);font-size:.9rem;flex:1;caret-color:var(--am-lime)}
+.form-row input::placeholder,.form-row textarea::placeholder{color:rgba(255,255,255,.2)}
+.form-row textarea{resize:none;min-height:80px}
+.btn-send{background:var(--am-green);color:var(--am-lime);border:1.5px solid var(--am-gold);font-family:var(--font-display);padding:.9rem 2rem;cursor:pointer;font-size:.8rem;letter-spacing:.05em;transition:all .2s;margin-top:1rem}
+.btn-send:hover{background:var(--am-gold);color:#070707}
+.social-channels{display:flex;gap:1.5rem;margin-top:2rem;flex-wrap:wrap}
+.social-channels a{font-family:var(--font-label);color:rgba(163,217,119,.7);text-decoration:none;font-size:.82rem;transition:all .2s;display:flex;align-items:center;gap:.4rem}
+.social-channels a:hover{color:var(--am-lime);transform:translateY(-2px)}
+/* FOOTER */
+footer{background:#030303;border-top:1px solid rgba(163,217,119,.1);height:60px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:space-between;padding:0 2rem}
+footer .left,footer .right{font-family:var(--font-label);font-size:.72rem;color:#444;z-index:1}
+.footer-car{position:absolute;bottom:18px;font-size:1.5rem;animation:footerCar 6s linear infinite}
+@keyframes footerCar{0%{transform:translateX(-120px)}100%{transform:translateX(calc(100vw + 120px))}}
+/* RESPONSIVE */
+@media(max-width:768px){
+.nav-center{display:none}
+.hamburger{display:block}
+#hero-badge{display:none}
+.hero-car-svg{width:90vw;right:-15%}
+.skills-grid{grid-template-columns:1fr}
+.proj-grid{grid-template-columns:1fr}
+.proj-featured{grid-row:auto}
+.timeline::before{left:20px}
+.tl-item,.tl-item:nth-child(even){width:calc(100% - 50px);margin-left:50px}
+.tl-item:nth-child(odd) .tl-node,.tl-item:nth-child(even) .tl-node{left:-43px;right:auto;transform:none}
+}
+@media(max-width:480px){
+.hero-name{font-size:2.2rem !important}
+.stack-grid{grid-template-columns:1fr 1fr}
+.cert-grid{grid-template-columns:1fr}
+}
+</style>
+</head>

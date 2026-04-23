@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Aryan Naik | Full Stack Developer — F1 Portfolio</title>
+<meta name="description" content="Aryan Naik — Full Stack Developer portfolio with an F1 racing theme. React, Node.js, Python, AWS.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@400;700&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<style>
+:root{
+--font-display:'Orbitron',sans-serif;--font-body:'JetBrains Mono',monospace;--font-label:'Rajdhani',sans-serif;
+--color-base:#070707;--color-grain:rgba(255,255,255,0.03);
+--renault-yellow:#FFE500;--renault-blue:#87CEEB;--renault-chassis:#111;
+--ferrari-red:#DC0000;--ferrari-gold:#FFD700;--ferrari-black:#111;
+--ferrari-tricolour-r:#DC0000;--ferrari-tricolour-w:#FFF;--ferrari-tricolour-g:#009246;
+--am-green:#00594F;--am-lime:#A3D977;--am-blue:#4B9CD3;--am-gold:#C9A84C;--am-carbon:#1A1A1A;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--color-base);color:#fff;font-family:var(--font-body);overflow-x:hidden;line-height:1.6}
+body::after{content:'';position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9998;opacity:0.04;
+background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.65' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .6s ease,transform .6s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.checkered{width:100%;height:8px;background:repeating-linear-gradient(90deg,#fff 0px,#fff 8px,#000 8px,#000 16px)}
+/* NAV */
+#nav{position:fixed;top:0;width:100%;z-index:9999;height:52px;background:rgba(5,5,5,0.93);backdrop-filter:blur(14px);display:flex;align-items:center;padding:0 1.5rem;border-bottom:2px solid transparent;background-clip:padding-box}
+#nav::after{content:'';position:absolute;bottom:0;left:0;width:100%;height:2px;background:linear-gradient(90deg,#FFE500,#DC0000,#00594F);background-size:200% 100%;animation:navGrad 4s linear infinite}
+@keyframes navGrad{0%{background-position:0% 0}100%{background-position:200% 0}}
+.nav-left{display:flex;align-items:center;gap:.6rem;flex-shrink:0}
+.nav-badge{width:32px;height:36px}
+.nav-logo{font-family:var(--font-display);color:var(--renault-yellow);font-size:.85rem;font-weight:700;letter-spacing:.05em}
+.nav-center{display:flex;gap:1.2rem;margin:0 auto;align-items:center}
+.nav-center a{font-family:var(--font-label);font-size:.75rem;color:rgba(255,255,255,.6);text-decoration:none;letter-spacing:.1em;padding:.2rem 0;border-bottom:2px solid transparent;transition:color .2s,border-color .2s}
+.nav-center a.active,.nav-center a:hover{color:var(--renault-yellow);border-bottom-color:var(--renault-yellow)}
+.nav-right{display:flex;align-items:center;gap:.8rem;flex-shrink:0}
+.rpm-bar{width:60px;height:6px;background:#1a1a1a;border-radius:3px;overflow:hidden}
+.rpm-fill{height:100%;width:0%;border-radius:3px;animation:rpmCycle 2s ease-in-out infinite}
+@keyframes rpmCycle{0%{width:0;background:#FFE500}33%{width:60%;background:#FFE500}50%{width:80%;background:#DC0000}66%{width:100%;background:#DC0000}83%{width:60%;background:#00594F}100%{width:0;background:#00594F}}
+.live-dot{width:6px;height:6px;background:#0f0;border-radius:50%;animation:blink 1.5s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+.live-text{font-family:var(--font-label);font-size:.65rem;color:#0f0;letter-spacing:.1em}
+.hamburger{display:none;background:none;border:none;color:#fff;font-size:1.4rem;cursor:pointer}
+.mobile-menu{display:none;position:fixed;top:52px;left:0;width:100%;background:rgba(5,5,5,.97);flex-direction:column;padding:1rem;gap:.5rem;z-index:9998}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-family:var(--font-label);color:rgba(255,255,255,.7);text-decoration:none;padding:.6rem 1rem;font-size:.9rem;letter-spacing:.1em}
+/* HERO */
+#era{position:relative;height:100vh;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.speed-line{position:absolute;height:1px;background:rgba(255,229,0,.12);transform:rotate(-15deg);animation:speedLine 3s linear infinite}
+@keyframes speedLine{0%{transform:rotate(-15deg) translateX(-100vw)}100%{transform:rotate(-15deg) translateX(100vw)}}
+.hero-car-svg{position:absolute;right:-5%;bottom:0;width:65vw;opacity:.07;z-index:1;pointer-events:none}
+.hero-circuit{position:absolute;bottom:20px;right:20px;width:180px;opacity:.06;z-index:1;pointer-events:none}
+#hero-badge{position:absolute;top:15%;left:5%;width:200px;height:200px;z-index:3}
+.hero-layout{display:flex;align-items:center;justify-content:center;gap:4rem;max-width:1200px;width:100%;padding:0 2rem;position:relative;z-index:4}
+.hero-content{text-align:left;max-width:650px}
+.hero-image-card{position:relative;width:320px;height:420px;background:#111;border:3px solid var(--renault-yellow);box-shadow:12px 12px 0 rgba(255,229,0,.2);display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0}
+.hero-image-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:repeating-linear-gradient(45deg,#000 0px,#000 15px,#fff 15px,#fff 30px);opacity:0.1;z-index:1}
+.hero-image-card::after{content:'';position:absolute;bottom:0;right:0;width:80px;height:80px;background:repeating-conic-gradient(#000 0% 25%, #fff 0% 50%) 50% / 20px 20px;z-index:2;border-top-left-radius:10px;border-top:3px solid var(--renault-yellow);border-left:3px solid var(--renault-yellow)}
+.hero-image-card img{width:calc(100% - 16px);height:calc(100% - 16px);object-fit:cover;position:relative;z-index:3;background:#222;outline:2px solid var(--renault-yellow)}
+.hero-tag{font-family:var(--font-label);font-size:.68rem;letter-spacing:.2em;color:var(--renault-blue);margin-bottom:.8rem}
+.hero-name{font-family:var(--font-display);font-size:clamp(3rem,8vw,7rem);color:#fff;font-weight:900;position:relative;display:inline-block}
+.hero-name::before,.hero-name::after{content:attr(data-text);position:absolute;top:0;left:0;width:100%;height:100%;overflow:hidden}
+.hero-name::before{color:var(--renault-yellow);z-index:-1;animation:glitch1 4s infinite}
+.hero-name::after{color:var(--renault-blue);z-index:-2;animation:glitch2 4s infinite}
+@keyframes glitch1{0%,92%,100%{clip-path:inset(0 0 0 0);transform:none}93%{clip-path:inset(20% 0 40% 0);transform:translateX(3px)}96%{clip-path:inset(60% 0 10% 0);transform:translateX(-3px)}98%{clip-path:inset(40% 0 30% 0);transform:translateX(2px)}}
+@keyframes glitch2{0%,92%,100%{clip-path:inset(0 0 0 0);transform:none}94%{clip-path:inset(50% 0 20% 0);transform:translateX(-3px)}97%{clip-path:inset(10% 0 60% 0);transform:translateX(3px)}99%{clip-path:inset(30% 0 40% 0);transform:translateX(-2px)}}
+.typewriter{font-family:var(--font-body);font-size:clamp(.9rem,2vw,1.2rem);color:var(--renault-yellow);min-height:1.8em;margin:.8rem 0}
+.typewriter .cursor{animation:cursorBlink .7s infinite}
+@keyframes cursorBlink{0%,100%{opacity:1}50%{opacity:0}}
+.hero-telemetry{font-family:var(--font-label);font-size:.85rem;color:rgba(255,229,0,.6);margin:.4rem 0}
+.hero-location{font-family:var(--font-label);font-size:.9rem;color:#fff;margin:.4rem 0}
+.hero-ctas{display:flex;gap:1rem;justify-content:flex-start;margin-top:2rem;flex-wrap:wrap}
+.btn-primary{background:var(--renault-yellow);color:#070707;font-family:var(--font-display);font-weight:700;font-size:.8rem;padding:.8rem 2rem;border:none;cursor:pointer;transition:all .2s;letter-spacing:.05em}
+.btn-primary:hover{background:#fff;transform:translateY(-2px);box-shadow:0 8px 30px rgba(255,229,0,.4)}
+.btn-outline{background:transparent;color:var(--renault-yellow);font-family:var(--font-display);font-size:.8rem;padding:.8rem 2rem;border:1.5px solid var(--renault-yellow);cursor:pointer;transition:all .2s;letter-spacing:.05em}
+.btn-outline:hover{background:rgba(255,229,0,.1)}
+/* TECH STACK */
+#stack{position:relative;padding:5rem 2rem;overflow:hidden}
+.section-head{margin-bottom:2rem}
+.section-head h2{font-family:var(--font-display);font-size:clamp(1.2rem,3vw,1.8rem);margin-bottom:.5rem}
+.section-head .line{width:60px;height:2px;margin-bottom:1rem}
+.section-head .tagline{font-family:var(--font-body);font-size:.85rem;color:rgba(255,255,255,.5);font-style:italic}
+.era1-head h2{color:var(--renault-yellow)}
+.era1-head .line{background:var(--renault-yellow)}
+.stack-bg-glow{position:absolute;top:0;left:0;width:60%;height:60%;background:radial-gradient(circle,rgba(135,206,235,.04),transparent);pointer-events:none;z-index:0}
+.stack-category{margin-bottom:3.5rem}
+.stack-category:last-child{margin-bottom:0}
+.cat-header{display:flex;align-items:center;margin-bottom:1.5rem}
+.cat-title{font-family:var(--font-display);font-size:1rem;color:var(--renault-yellow);text-transform:uppercase;letter-spacing:.1em;margin-bottom:0;border:none;padding-left:0;margin-right:1rem}
+.cat-line{flex:1;height:1px;background:rgba(255,229,0,0.2)}
+.stack-grid{display:flex;flex-wrap:wrap;gap:1.5rem;position:relative;z-index:1}
+.stack-card{background:transparent;border-radius:12px;width:140px;height:140px;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:transform .2s;cursor:default;position:relative;border:none}
+.stack-card::after{content:'';position:absolute;inset:0;background:#181818;border-radius:12px;z-index:-1;border:1px solid rgba(255,255,255,0.05)}
+.stack-card::before{content:'';position:absolute;inset:-3px;border-radius:14px;background:repeating-conic-gradient(#111 0% 25%, #333 0% 50%) 50% / 10px 10px;z-index:-2;opacity:0;transition:opacity .3s}
+.stack-card:hover{transform:translateY(-5px)}
+.stack-card:hover::before{opacity:1;background:repeating-conic-gradient(#000 0% 25%, var(--renault-yellow) 0% 50%) 50% / 10px 10px}
+.tech-logo{width:50px;height:50px;object-fit:contain;margin-bottom:.8rem;opacity:0.9;border-radius:0;background:transparent;padding:0;border:none;position:static;z-index:1}
+.stack-card .tech{font-family:var(--font-display);font-size:.8rem;color:#fff;margin-bottom:0;padding-right:0;text-transform:uppercase;letter-spacing:.05em;text-align:center;z-index:1}
+/* ERA 2 SECTIONS */
+.era2-bg{position:relative;background:#080808}
+.era2-bg::before{content:'';position:absolute;left:0;top:0;width:200px;height:100%;background:linear-gradient(90deg,rgba(220,0,0,.08),transparent);pointer-events:none;z-index:0}
+.era2-bg::after{content:'';position:absolute;right:0;top:0;width:200px;height:100%;background:linear-gradient(-90deg,rgba(220,0,0,.08),transparent);pointer-events:none;z-index:0}
+.era2-car-svg{position:absolute;left:-2%;top:50%;transform:translateY(-50%);width:55vw;opacity:.06;z-index:0;pointer-events:none}
+.era2-head h2{color:var(--ferrari-red)}
+.era2-head .line{background:var(--ferrari-red)}
+/* JOURNEY */
+#journey{position:relative;padding:5rem 2rem;z-index:1}
+.timeline{position:relative;max-width:900px;margin:0 auto}
+.timeline::before{content:'';position:absolute;left:50%;top:0;width:2px;height:100%;background:var(--ferrari-red);transform:translateX(-50%)}
+.tl-item{position:relative;width:44%;margin-bottom:2.5rem}
+.tl-item:nth-child(odd){margin-left:0}
+.tl-item:nth-child(even){margin-left:56%}
+.tl-node{position:absolute;top:1rem;width:14px;height:14px;background:var(--ferrari-gold);border:2px solid var(--ferrari-red);border-radius:50%;z-index:2}
+.tl-item:nth-child(odd) .tl-node{right:-7%;transform:translateX(50%)}
+.tl-item:nth-child(even) .tl-node{left:-7%;transform:translateX(-50%)}
+.tl-card{background:#0D0D0D;border-top:3px solid var(--ferrari-red);overflow:hidden;padding:0}
+.tl-tricolour{height:3px;width:100%;background:linear-gradient(90deg,#DC0000 33%,#fff 33% 66%,#009246 66%)}
+.tl-card-inner{padding:1.2rem}
+.tl-card .gp-tag{font-family:var(--font-label);font-size:.62rem;color:var(--ferrari-gold);letter-spacing:.1em}
+.tl-card h3{font-family:var(--font-display);font-size:1rem;color:#fff;margin:.3rem 0}
+.tl-card p{font-family:var(--font-body);font-size:.8rem;color:rgba(255,255,255,.6)}
+/* SKILLS */
+#skills{position:relative;padding:5rem 2rem;z-index:1}
+.skills-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;max-width:1000px;margin:0 auto}
+.tacho-container{display:flex;justify-content:center;align-items:center}
+.tacho-svg{width:260px;height:260px}
+.skills-bars{display:flex;flex-direction:column;gap:1rem;justify-content:center}
+.skill-group-label{font-family:var(--font-label);font-size:.65rem;color:var(--ferrari-gold);letter-spacing:.15em;margin-top:1rem;margin-bottom:.3rem}
+.skill-row{display:flex;align-items:center;gap:.8rem}
+.skill-row .name{font-family:var(--font-display);font-size:.75rem;color:#fff;width:120px;flex-shrink:0}
+.skill-row .track{flex:1;height:6px;background:#1a1a1a;border-radius:3px;overflow:hidden}
+.skill-row .fill{height:100%;width:0;background:var(--ferrari-red);border-radius:3px;transition:width 1.2s ease-out}
+.skill-row .fill.glow{box-shadow:2px 0 8px var(--ferrari-gold)}
+.skill-row .pct{font-family:var(--font-label);font-size:.75rem;color:var(--ferrari-gold);width:90px;text-align:right;flex-shrink:0}
+/* PROJECTS */
+#projects{position:relative;padding:5rem 2rem;z-index:1}
+.proj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem;max-width:1100px;margin:0 auto}
+.proj-featured{background:#0D0D0D;border-left:4px solid var(--ferrari-red);position:relative;overflow:hidden;transition:transform .3s,box-shadow .3s}
+.proj-featured:hover{transform:perspective(800px) rotateY(-3deg) translateY(-4px);box-shadow:0 20px 50px rgba(220,0,0,.25)}
+.proj-tricolour{height:4px;background:linear-gradient(90deg,#DC0000 33%,#fff 33% 66%,#009246 66%)}
+.proj-badge{position:absolute;top:1rem;right:1rem;border:1.5px solid var(--ferrari-gold);color:var(--ferrari-gold);font-family:var(--font-label);font-size:.7rem;padding:.2rem .6rem;z-index:2}
+.proj-card{background:#0D0D0D;border-top:3px solid var(--ferrari-red);padding:1.2rem;transition:transform .2s,box-shadow .2s}
+.proj-card:hover{transform:translateY(-4px);box-shadow:0 10px 30px rgba(220,0,0,.15)}
+.proj-inner{padding:1.5rem}
+.proj-inner h3{font-family:var(--font-display);font-size:1.3rem;color:#fff;margin-bottom:.6rem}
+.proj-inner .desc{font-family:var(--font-body);font-size:.82rem;color:rgba(255,255,255,.6);margin-bottom:1rem}
+.tyre-tags{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem}
+.tyre-tag{font-family:var(--font-label);font-size:.7rem;padding:.2rem .5rem;border-radius:12px;border:1px solid}
+.tyre-soft{color:#DC0000;border-color:#DC0000}
+.tyre-med{color:#FFD700;border-color:#FFD700}
+.tyre-hard{color:#ccc;border-color:#ccc}
+.proj-stats{font-family:var(--font-label);font-size:.78rem;color:rgba(255,255,255,.5);margin-bottom:1rem}
+.proj-btns{display:flex;gap:.8rem}
+.proj-btn{font-family:var(--font-display);font-size:.7rem;padding:.5rem 1.2rem;cursor:pointer;letter-spacing:.05em;transition:all .2s;text-decoration:none}
+.proj-btn-outline{background:transparent;color:var(--ferrari-red);border:1.5px solid var(--ferrari-red)}
+.proj-btn-outline:hover{background:rgba(220,0,0,.1)}
+.proj-btn-fill{background:var(--ferrari-red);color:#fff;border:none}
+.proj-btn-fill:hover{background:#ff1a1a}
+/* ERA 3 */
+.era3-bg{position:relative;background:linear-gradient(180deg,#080808,#00190F);overflow:hidden}
+.era3-bg::before{content:'';position:absolute;top:0;left:0;width:100%;height:100%;
+background:repeating-linear-gradient(45deg,rgba(255,255,255,.015) 0px,rgba(255,255,255,.015) 1px,transparent 1px,transparent 8px),
+repeating-linear-gradient(-45deg,rgba(255,255,255,.015) 0px,rgba(255,255,255,.015) 1px,transparent 1px,transparent 8px);pointer-events:none;z-index:0}
+.era3-car-svg{position:absolute;right:-3%;top:50%;transform:translateY(-50%);width:60vw;opacity:.07;z-index:0;pointer-events:none}
+.era3-circuit{position:absolute;bottom:8%;left:3%;width:180px;opacity:.05;pointer-events:none;z-index:0}
+.era3-head h2{color:var(--am-lime)}
+.era3-head .line{background:var(--am-lime)}
+/* CERTS */
+#certs{position:relative;padding:5rem 2rem;z-index:1}
+.cert-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.2rem}
+.cert-card{background:#0A2E28;border-top:3px solid var(--am-gold);padding:1.5rem;clip-path:polygon(0 0,100% 0,100% 85%,85% 100%,0 100%);transition:all .25s ease;cursor:default}
+.cert-card:hover{box-shadow:0 0 30px rgba(163,217,119,.15);border-top-color:var(--am-lime);transform:translateY(-4px)}
+.cert-laurel{width:32px;height:32px;margin-bottom:.6rem}
+.cert-card h3{font-family:var(--font-display);font-size:.9rem;color:#fff;margin-bottom:.4rem}
+.cert-card .issuer{font-family:var(--font-label);font-size:.78rem;color:var(--am-lime)}
+.cert-card .season{font-family:var(--font-label);font-size:.72rem;color:rgba(255,255,255,.4);margin-bottom:.8rem}
+.cert-badge{display:inline-block;font-family:var(--font-label);font-size:.68rem;padding:.2rem .6rem;border-radius:2px;font-weight:600}
+.badge-platinum{background:var(--am-lime);color:#070707}
+.badge-gold{background:var(--am-gold);color:#070707}
+.badge-silver{background:var(--am-blue);color:#fff}
+/* CONTACT */
+#contact{position:relative;padding:5rem 2rem;z-index:1}
+.contact-garage{position:absolute;bottom:0;left:0;right:0;height:200px;opacity:.04;z-index:0;pointer-events:none;display:flex;align-items:flex-end;justify-content:center;gap:5%}
+.terminal-form{position:relative;z-index:1;max-width:600px;margin:0 auto}
+.form-row{display:flex;align-items:center;border-bottom:1px solid rgba(163,217,119,.2);margin-bottom:1rem;padding:.5rem 0}
+.form-row .prompt{font-family:var(--font-label);color:var(--am-lime);width:1.5rem;flex-shrink:0}
+.form-row .label{font-family:var(--font-body);color:rgba(163,217,119,.5);width:140px;flex-shrink:0;font-size:.82rem}
+.form-row input,.form-row textarea{background:transparent;border:none;outline:none;color:#fff;font-family:var(--font-body);font-size:.9rem;flex:1;caret-color:var(--am-lime)}
+.form-row input::placeholder,.form-row textarea::placeholder{color:rgba(255,255,255,.2)}
+.form-row textarea{resize:none;min-height:80px}
+.btn-send{background:var(--am-green);color:var(--am-lime);border:1.5px solid var(--am-gold);font-family:var(--font-display);padding:.9rem 2rem;cursor:pointer;font-size:.8rem;letter-spacing:.05em;transition:all .2s;margin-top:1rem}
+.btn-send:hover{background:var(--am-gold);color:#070707}
+.social-channels{display:flex;gap:1.5rem;margin-top:2rem;flex-wrap:wrap}
+.social-channels a{font-family:var(--font-label);color:rgba(163,217,119,.7);text-decoration:none;font-size:.82rem;transition:all .2s;display:flex;align-items:center;gap:.4rem}
+.social-channels a:hover{color:var(--am-lime);transform:translateY(-2px)}
+/* FOOTER */
+footer{background:#030303;border-top:1px solid rgba(163,217,119,.1);height:60px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:space-between;padding:0 2rem}
+footer .left,footer .right{font-family:var(--font-label);font-size:.72rem;color:#444;z-index:1}
+.footer-car{position:absolute;bottom:18px;font-size:1.5rem;animation:footerCar 12s linear infinite}
+@keyframes footerCar{0%{transform:translateX(-120px) scaleX(-1)}100%{transform:translateX(calc(100vw + 120px)) scaleX(-1)}}
+/* RESPONSIVE */
+@media(max-width:768px){
+.nav-center{display:none}
+.hamburger{display:block}
+#hero-badge{display:none}
+.hero-car-svg{width:90vw;right:-15%}
+.skills-grid{grid-template-columns:1fr}
+.proj-grid{grid-template-columns:1fr}
+.proj-featured{grid-row:auto}
+.timeline::before{left:20px}
+.tl-item,.tl-item:nth-child(even){width:calc(100% - 50px);margin-left:50px}
+.tl-item:nth-child(odd) .tl-node,.tl-item:nth-child(even) .tl-node{left:-43px;right:auto;transform:none}
+}
+@media(max-width:900px){
+.hero-layout{flex-direction:column-reverse;text-align:center}
+.hero-content{text-align:center}
+.hero-ctas{justify-content:center}
+}
+@media(max-width:480px){
+.hero-name{font-size:2.2rem !important}
+.stack-grid{grid-template-columns:1fr 1fr}
+.cert-grid{grid-template-columns:1fr}
+}
+/* CUSTOM CURSOR - SVG F1 CAR */
+:root {
+  --cursor-era1: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath d='M16 2 L20 10 L24 12 L24 20 L20 22 L20 28 L12 28 L12 22 L8 20 L8 12 L12 10 Z' fill='%23FFE500' stroke='%23000' stroke-width='1'/%3E%3Crect x='6' y='10' width='4' height='8' fill='%23333' rx='1'/%3E%3Crect x='22' y='10' width='4' height='8' fill='%23333' rx='1'/%3E%3Crect x='4' y='20' width='6' height='8' fill='%23333' rx='1'/%3E%3Crect x='22' y='20' width='6' height='8' fill='%23333' rx='1'/%3E%3C/svg%3E");
+  --cursor-era2: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath d='M16 2 L20 10 L24 12 L24 20 L20 22 L20 28 L12 28 L12 22 L8 20 L8 12 L12 10 Z' fill='%23DC0000' stroke='%23000' stroke-width='1'/%3E%3Crect x='6' y='10' width='4' height='8' fill='%23333' rx='1'/%3E%3Crect x='22' y='10' width='4' height='8' fill='%23333' rx='1'/%3E%3Crect x='4' y='20' width='6' height='8' fill='%23333' rx='1'/%3E%3Crect x='22' y='20' width='6' height='8' fill='%23333' rx='1'/%3E%3C/svg%3E");
+  --cursor-era3: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath d='M16 2 L20 10 L24 12 L24 20 L20 22 L20 28 L12 28 L12 22 L8 20 L8 12 L12 10 Z' fill='%23A3D977' stroke='%23000' stroke-width='1'/%3E%3Crect x='6' y='10' width='4' height='8' fill='%23333' rx='1'/%3E%3Crect x='22' y='10' width='4' height='8' fill='%23333' rx='1'/%3E%3Crect x='4' y='20' width='6' height='8' fill='%23333' rx='1'/%3E%3Crect x='22' y='20' width='6' height='8' fill='%23333' rx='1'/%3E%3C/svg%3E");
+}
+
+@media (pointer: fine) {
+  body, a, button, input, textarea, .nav-center a {
+    cursor: var(--cursor-era1) 16 0, auto !important;
+  }
+  body.cursor-era2-active, body.cursor-era2-active a, body.cursor-era2-active button, body.cursor-era2-active input, body.cursor-era2-active textarea {
+    cursor: var(--cursor-era2) 16 0, auto !important;
+  }
+  body.cursor-era3-active, body.cursor-era3-active a, body.cursor-era3-active button, body.cursor-era3-active input, body.cursor-era3-active textarea {
+    cursor: var(--cursor-era3) 16 0, auto !important;
+  }
+}
+</style>
+</head>
+<body>
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-left">
+    <svg class="nav-badge" viewBox="0 0 100 115" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M50 0L93.3013 25V75L50 100L6.69873 75V25L50 0Z" stroke="#FFE500" stroke-width="4"/>
+      <text x="50" y="60" font-family="Orbitron" font-size="32" font-weight="bold" fill="#FFE500" text-anchor="middle">#14</text>
+    </svg>
+    <div class="nav-logo">ALX.DEV</div>
+  </div>
+  <div class="nav-center">
+    <a href="#era" class="active">ERA</a>
+    <a href="#stack">STACK</a>
+    <a href="#journey">JOURNEY</a>
+    <a href="#skills">SKILLS</a>
+    <a href="#projects">PROJECTS</a>
+    <a href="#certs">CERTS</a>
+    <a href="#contact">CONTACT</a>
+  </div>
+  <div class="nav-right">
+    <div class="rpm-bar"><div class="rpm-fill"></div></div>
+    <div class="live-dot"></div>
+    <div class="live-text">LIVE</div>
+    <button class="hamburger">☰</button>
+  </div>
+</nav>
+
+<div class="mobile-menu">
+  <a href="#era">ERA</a>
+  <a href="#stack">STACK</a>
+  <a href="#journey">JOURNEY</a>
+  <a href="#skills">SKILLS</a>
+  <a href="#projects">PROJECTS</a>
+  <a href="#certs">CERTS</a>
+  <a href="#contact">CONTACT</a>
+</div>
+
+<!-- ERA 1: RENAULT -->
+<section id="era">
+  <!-- Speed lines generated by JS -->
+  <div id="speed-lines"></div>
+  
+  <!-- Renault R26 SVG -->
+  <svg class="hero-car-svg" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg">
+    <!-- Main Body -->
+    <path d="M 50 150 L 150 145 C 200 140 250 135 300 130 C 350 120 400 110 450 100 C 500 90 600 95 650 100 L 750 100" fill="none" stroke="#FFE500" stroke-width="2"/>
+    <!-- Nose & Front Wing -->
+    <path d="M 50 150 L 10 155 L 10 165 L 100 165" fill="none" stroke="#FFE500" stroke-width="2"/>
+    <path d="M 30 155 L 30 145 L 80 145" fill="none" stroke="#FFE500" stroke-width="2"/>
+    <!-- Cockpit & Airbox -->
+    <path d="M 400 110 C 420 80 430 50 450 50 C 470 50 480 80 500 90" fill="none" stroke="#FFE500" stroke-width="2"/>
+    <!-- Sidepod Swoop Line -->
+    <path d="M 300 160 C 350 160 400 150 450 120 C 500 90 550 80 600 80" fill="none" stroke="#87CEEB" stroke-width="3"/>
+    <!-- Rear Wing -->
+    <path d="M 700 100 L 700 40 L 750 40 L 750 100" fill="none" stroke="#FFE500" stroke-width="2"/>
+    <path d="M 700 60 L 750 60" fill="none" stroke="#FFE500" stroke-width="2"/>
+    <!-- Wheels -->
+    <circle cx="200" cy="160" r="25" fill="none" stroke="#FFE500" stroke-width="2"/>
+    <circle cx="650" cy="150" r="35" fill="none" stroke="#FFE500" stroke-width="2"/>
+  </svg>
+
+  <!-- Monza Map SVG -->
+  <svg class="hero-circuit" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <path d="M 20 50 L 120 50 C 130 50 140 40 150 40 C 160 40 170 50 180 60 C 190 70 180 80 170 90 C 160 100 150 110 140 120 C 130 130 120 140 110 150 C 100 160 80 170 60 170 C 40 170 20 150 20 130 L 20 50" fill="none" stroke="#FFE500" stroke-width="3"/>
+  </svg>
+
+  <div id="hero-badge"></div>
+
+  <div class="hero-layout reveal">
+    <div class="hero-content">
+      <div class="hero-tag">SEASON 2003–2006 &nbsp;&middot;&nbsp; RENAULT F1 TEAM &nbsp;&middot;&nbsp; CHASSIS: R25 / R26</div>
+      <h1 class="hero-name" data-text="ARYAN NAIK">ARYAN NAIK</h1>
+      <div class="typewriter"><span id="typewriter-text"></span><span class="cursor">▮</span></div>
+      <div class="hero-telemetry">> THROTTLE: 100% &nbsp;&middot;&nbsp; SECTOR: T1 &nbsp;&middot;&nbsp; LAP STATUS: HOT LAP ACTIVE</div>
+      <div class="hero-location">🇮🇳 HOME CIRCUIT: Mumbai Street Circuit</div>
+      <div class="hero-ctas">
+        <button class="btn-primary" onclick="document.getElementById('projects').scrollIntoView()">VIEW PROJECTS</button>
+        <button class="btn-outline">DOWNLOAD CV</button>
+      </div>
+    </div>
+    
+    <div class="hero-image-card">
+      <img src="https://via.placeholder.com/400x500/111/FFE500?text=YOUR+PHOTO+HERE" alt="Aryan Naik">
+    </div>
+  </div>
+</section>
+
+<!-- TECH STACK -->
+<section id="stack" class="era1-head">
+  <div class="stack-bg-glow"></div>
+  <div class="section-head reveal">
+    <h2>#01 // RENAULT ERA — THE CONSTRUCTOR'S ARSENAL</h2>
+    <div class="line"></div>
+    <div class="tagline">"Back-to-back championships don't happen by accident."</div>
+  </div>
+  
+  <div class="stack-category reveal">
+    <h3 class="cat-title">Frontend Engineering</h3>
+    <div class="stack-grid">
+      <div class="stack-card">
+        <img src="https://via.placeholder.com/80/222/FFE500?text=H5" alt="HTML" class="tech-logo">
+        <div class="tech">HTML</div>
+      </div>
+      <div class="stack-card">
+        <img src="https://via.placeholder.com/80/222/FFE500?text=C3" alt="CSS" class="tech-logo">
+        <div class="tech">CSS</div>
+      </div>
+      <div class="stack-card">
+        <img src="https://via.placeholder.com/80/222/FFE500?text=BS" alt="Bootstrap" class="tech-logo">
+        <div class="tech">Bootstrap</div>
+      </div>
+      <div class="stack-card">
+        <img src="https://via.placeholder.com/80/222/FFE500?text=JS" alt="JavaScript" class="tech-logo">
+        <div class="tech">JavaScript</div>
+      </div>
+      <div class="stack-card">
+        <img src="https://via.placeholder.com/80/222/FFE500?text=Re" alt="React" class="tech-logo">
+        <div class="tech">React</div>
+      </div>
+      <div class="stack-card">
+        <img src="https://via.placeholder.com/80/222/FFE500?text=TW" alt="TailwindCSS" class="tech-logo">
+        <div class="tech">TailwindCSS</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="stack-category reveal">
+    <h3 class="cat-title">Backend Architecture</h3>
+    <div class="stack-grid">
+      <div class="stack-card">
+        <img src="https://via.placeholder.com/80/222/FFE500?text=Py" alt="Python (Flask)" class="tech-logo">
+        <div class="tech">Python (Flask)</div>
+      </div>
+      <div class="stack-card">
+        <img src="https://via.placeholder.com/80/222/FFE500?text=Ja" alt="Java" class="tech-logo">
+        <div class="tech">Java</div>
+      </div>
+      <div class="stack-card">
+        <img src="https://via.placeholder.com/80/222/FFE500?text=Nd" alt="Node.js" class="tech-logo">
+        <div class="tech">Node.js</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="stack-category reveal">
+    <h3 class="cat-title">Data Storage & Management</h3>
+    <div class="stack-grid">
+      <div class="stack-card">
+        <img src="https://via.placeholder.com/80/222/FFE500?text=MG" alt="MongoDB" class="tech-logo">
+        <div class="tech">MongoDB</div>
+      </div>
+      <div class="stack-card">
+        <img src="https://via.placeholder.com/80/222/FFE500?text=PG" alt="PostgreSQL" class="tech-logo">
+        <div class="tech">PostgreSQL</div>
+      </div>
+      <div class="stack-card">
+        <img src="https://via.placeholder.com/80/222/FFE500?text=Rd" alt="Redis" class="tech-logo">
+        <div class="tech">Redis</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="stack-category reveal">
+    <h3 class="cat-title">Infrastructure & DevOps</h3>
+    <div class="stack-grid">
+      <div class="stack-card">
+        <img src="https://via.placeholder.com/80/222/FFE500?text=Dk" alt="Docker" class="tech-logo">
+        <div class="tech">Docker</div>
+      </div>
+      <div class="stack-card">
+        <img src="https://via.placeholder.com/80/222/FFE500?text=AW" alt="AWS" class="tech-logo">
+        <div class="tech">AWS</div>
+      </div>
+      <div class="stack-card">
+        <img src="https://via.placeholder.com/80/222/FFE500?text=Gt" alt="Git" class="tech-logo">
+        <div class="tech">Git</div>
+      </div>
+    </div>
+</section>
+
+<div class="checkered"></div>
+
+<!-- ERA 2: FERRARI -->
+<div class="era2-bg">
+  <svg class="era2-car-svg" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg">
+    <!-- Front Red Body -->
+    <path d="M 800 150 L 700 145 C 650 140 600 135 550 130 C 500 120 450 110 400 100 L 300 100" fill="none" stroke="#DC0000" stroke-width="2"/>
+    <!-- Nose & Front Wing -->
+    <path d="M 800 150 L 850 155 L 850 165 L 750 165" fill="none" stroke="#DC0000" stroke-width="2"/>
+    <path d="M 820 155 L 820 145 L 770 145" fill="none" stroke="#DC0000" stroke-width="2"/>
+    <path d="M 750 160 L 700 160 L 700 170 L 750 170" fill="none" stroke="#DC0000" stroke-width="2"/>
+    <!-- Cockpit & Airbox -->
+    <path d="M 450 110 C 430 80 420 50 400 50 C 380 50 370 80 350 90" fill="none" stroke="#DC0000" stroke-width="2"/>
+    <!-- Rear Black Body -->
+    <path d="M 300 100 C 250 100 200 110 150 130 L 100 140" fill="none" stroke="#333" stroke-width="2" stroke-dasharray="5,5"/>
+    <path d="M 150 130 L 150 160" fill="none" stroke="#333" stroke-width="2"/>
+    <!-- Tricolour Stripe -->
+    <path d="M 400 160 L 300 100" fill="none" stroke="#DC0000" stroke-width="1" transform="translate(0, -2)"/>
+    <path d="M 400 160 L 300 100" fill="none" stroke="#FFF" stroke-width="1"/>
+    <path d="M 400 160 L 300 100" fill="none" stroke="#009246" stroke-width="1" transform="translate(0, 2)"/>
+    <!-- Rear Wing -->
+    <path d="M 150 100 L 150 40 L 100 40 L 100 100" fill="none" stroke="#333" stroke-width="2" stroke-dasharray="5,5"/>
+    <!-- Wheels -->
+    <circle cx="650" cy="160" r="30" fill="none" stroke="#DC0000" stroke-width="2"/>
+    <circle cx="200" cy="150" r="40" fill="none" stroke="#333" stroke-width="2" stroke-dasharray="5,5"/>
+  </svg>
+
+  <svg class="hero-circuit" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" style="opacity:0.05;stroke:#DC0000;bottom:5%;right:3%">
+    <path d="M 20 50 L 120 50 C 130 50 140 40 150 40 C 160 40 170 50 180 60 C 190 70 180 80 170 90 C 160 100 150 110 140 120 C 130 130 120 140 110 150 C 100 160 80 170 60 170 C 40 170 20 150 20 130 L 20 50" fill="none" stroke-width="3"/>
+  </svg>
+
+  <!-- JOURNEY -->
+  <section id="journey" class="era2-head">
+    <div class="section-head reveal">
+      <h2>#02 // FERRARI ERA — RACE HISTORY</h2>
+      <div class="line"></div>
+      <div class="tagline">"Five seasons. Three runner-up titles. Zero compromises."</div>
+    </div>
+    
+    <div class="timeline">
+      <div class="tl-item reveal">
+        <div class="tl-node"></div>
+        <div class="tl-card">
+          <div class="tl-tricolour"></div>
+          <div class="tl-card-inner">
+            <div class="gp-tag">GP #01 &nbsp;&middot;&nbsp; SEASON 2019</div>
+            <h3>FIRST COMMIT</h3>
+            <p>"Started with HTML. Broke everything. Loved it."</p>
+          </div>
+        </div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-node"></div>
+        <div class="tl-card">
+          <div class="tl-tricolour"></div>
+          <div class="tl-card-inner">
+            <div class="gp-tag">GP #02 &nbsp;&middot;&nbsp; SEASON 2020</div>
+            <h3>FIRST LIVE APP</h3>
+            <p>"Deployed a weather app. Felt like a podium finish."</p>
+          </div>
+        </div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-node"></div>
+        <div class="tl-card">
+          <div class="tl-tricolour"></div>
+          <div class="tl-card-inner">
+            <div class="gp-tag">GP #03 &nbsp;&middot;&nbsp; SEASON 2021</div>
+            <h3>FIRST INTERNSHIP</h3>
+            <p>"ABC Tech, Frontend Team. Real code. Real stakes."</p>
+          </div>
+        </div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-node"></div>
+        <div class="tl-card">
+          <div class="tl-tricolour"></div>
+          <div class="tl-card-inner">
+            <div class="gp-tag">GP #04 &nbsp;&middot;&nbsp; SEASON 2022</div>
+            <h3>FIRST FULL-STACK BUILD</h3>
+            <p>"PitStop API — designed, built, shipped alone."</p>
+          </div>
+        </div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-node"></div>
+        <div class="tl-card">
+          <div class="tl-tricolour"></div>
+          <div class="tl-card-inner">
+            <div class="gp-tag">GP #05 &nbsp;&middot;&nbsp; SEASON 2023</div>
+            <h3>FREELANCE LAUNCH</h3>
+            <p>"Took clients. Delivered on time. No excuses."</p>
+          </div>
+        </div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-node"></div>
+        <div class="tl-card">
+          <div class="tl-tricolour"></div>
+          <div class="tl-card-inner">
+            <div class="gp-tag">GP #06 &nbsp;&middot;&nbsp; SEASON 2024</div>
+            <h3>OPEN SOURCE CONTRIBUTOR</h3>
+            <p>"First PR merged. Community recognized the work."</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills" class="era2-head">
+    <div class="section-head reveal">
+      <h2>#03 // FERRARI ERA — TELEMETRY READOUT</h2>
+      <div class="line"></div>
+      <div class="tagline">"Precision data. Every millisecond accounted for."</div>
+    </div>
+
+    <div class="skills-grid reveal">
+      <div class="tacho-container">
+        <svg class="tacho-svg" viewBox="0 0 200 200">
+          <circle cx="100" cy="100" r="85" fill="none" stroke="#1a1a1a" stroke-width="16"/>
+          <path d="M 40 160 A 85 85 0 1 1 160 160" fill="none" stroke="#111" stroke-width="16" stroke-linecap="round"/>
+          <path d="M 40 160 A 85 85 0 1 1 160 160" fill="none" stroke="#DC0000" stroke-width="16" stroke-linecap="round" stroke-dasharray="400" stroke-dashoffset="400" id="tacho-arc"/>
+          <!-- Tick marks -->
+          <g stroke="#333" stroke-width="2">
+            <!-- Simplified ticks -->
+            <line x1="15" y1="100" x2="25" y2="100" />
+            <line x1="185" y1="100" x2="175" y2="100" />
+            <line x1="100" y1="15" x2="100" y2="25" />
+            <line x1="40" y1="40" x2="47" y2="47" />
+            <line x1="160" y1="40" x2="153" y2="47" />
+            <line x1="40" y1="160" x2="47" y2="153" />
+            <line x1="160" y1="160" x2="153" y2="153" />
+          </g>
+          <!-- Needle -->
+          <line x1="100" y1="100" x2="40" y2="160" stroke="#FFD700" stroke-width="3" id="tacho-needle" style="transform-origin: 100px 100px; transform: rotate(0deg); transition: transform 1.5s ease-out;"/>
+          <circle cx="100" cy="100" r="8" fill="#FFD700"/>
+          
+          <text x="100" y="90" font-family="Orbitron" font-size="28" fill="#fff" text-anchor="middle" id="tacho-val">0</text>
+          <text x="100" y="110" font-family="Rajdhani" font-size="12" fill="rgba(255,255,255,0.4)" text-anchor="middle">/100</text>
+          <text x="100" y="125" font-family="Rajdhani" font-size="8" fill="#FFD700" text-anchor="middle">PERFORMANCE INDEX</text>
+        </svg>
+      </div>
+      
+      <div class="skills-bars">
+        <div class="skill-group-label">[AERO PACKAGE]</div>
+        <div class="skill-row" data-val="92"><div class="name">React</div><div class="track"><div class="fill"></div></div><div class="pct">0% THROTTLE</div></div>
+        <div class="skill-row" data-val="88"><div class="name">Next.js</div><div class="track"><div class="fill"></div></div><div class="pct">0% THROTTLE</div></div>
+        <div class="skill-row" data-val="85"><div class="name">TypeScript</div><div class="track"><div class="fill"></div></div><div class="pct">0% THROTTLE</div></div>
+        
+        <div class="skill-group-label">[POWER UNIT]</div>
+        <div class="skill-row" data-val="80"><div class="name">Node.js</div><div class="track"><div class="fill"></div></div><div class="pct">0% THROTTLE</div></div>
+        <div class="skill-row" data-val="75"><div class="name">Python</div><div class="track"><div class="fill"></div></div><div class="pct">0% THROTTLE</div></div>
+        
+        <div class="skill-group-label">[CHASSIS]</div>
+        <div class="skill-row" data-val="70"><div class="name">PostgreSQL</div><div class="track"><div class="fill"></div></div><div class="pct">0% THROTTLE</div></div>
+        
+        <div class="skill-group-label">[PIT WALL]</div>
+        <div class="skill-row" data-val="65"><div class="name">Docker</div><div class="track"><div class="fill"></div></div><div class="pct">0% THROTTLE</div></div>
+        <div class="skill-row" data-val="62"><div class="name">AWS</div><div class="track"><div class="fill"></div></div><div class="pct">0% THROTTLE</div></div>
+        <div class="skill-row" data-val="95"><div class="name">Git</div><div class="track"><div class="fill"></div></div><div class="pct">0% THROTTLE</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects" class="era2-head">
+    <div class="section-head reveal">
+      <h2>#04 // FERRARI ERA — PODIUM FINISHES</h2>
+      <div class="line"></div>
+      <div class="tagline">"Close to the limit. Every single race."</div>
+    </div>
+
+    <div class="proj-grid reveal">
+      <div class="proj-featured">
+        <div class="proj-tricolour"></div>
+        <div class="proj-badge">P1 &middot; FASTEST LAP</div>
+        <div style="position:absolute;top:0;left:0;transform:rotate(-45deg) translate(-30%,-30%);background:#DC0000;width:80px;height:80px;clip-path:polygon(0 0,100% 0,0 100%);"></div>
+        <div class="proj-inner" style="margin-top:2rem;">
+          <h3>PitStop API</h3>
+          <p class="desc">Real-time race analytics REST API with live data streaming.</p>
+          <div class="tyre-tags">
+            <span class="tyre-tag tyre-soft">🔴 Node.js</span>
+            <span class="tyre-tag tyre-med">🟡 Express</span>
+            <span class="tyre-tag tyre-hard">⚪ MongoDB</span>
+          </div>
+          <div class="proj-stats">⭐ 240 &nbsp;&middot;&nbsp; 🍴 45 &nbsp;&middot;&nbsp; STATUS: LIVE ✓</div>
+          <div class="proj-btns">
+            <a href="#" class="proj-btn proj-btn-outline">RACE REPLAY</a>
+            <a href="#" class="proj-btn proj-btn-fill">LIVE STREAM</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-card">
+        <div class="proj-inner">
+          <h3>GridSync</h3>
+          <p class="desc">Real-time grid positioning and telemetry synchronization dashboard.</p>
+          <div class="tyre-tags">
+            <span class="tyre-tag tyre-soft">🔴 React</span>
+            <span class="tyre-tag tyre-med">🟡 WebSockets</span>
+            <span class="tyre-tag tyre-hard">⚪ Redis</span>
+          </div>
+          <div class="proj-stats">⭐ 87 &nbsp;&middot;&nbsp; STATUS: LIVE ✓</div>
+        </div>
+      </div>
+
+      <div class="proj-card">
+        <div class="proj-inner">
+          <h3>LapLogger</h3>
+          <p class="desc">Offline-first mobile web app for track day enthusiasts to log laps.</p>
+          <div class="tyre-tags">
+            <span class="tyre-tag tyre-soft">🔴 Python</span>
+            <span class="tyre-tag tyre-hard">⚪ SQLite</span>
+          </div>
+          <div class="proj-stats">⭐ 43 &nbsp;&middot;&nbsp; STATUS: STABLE</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="checkered"></div>
+<!-- ERA 3: ASTON MARTIN -->
+<div class="era3-bg">
+  <svg class="era3-car-svg" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg">
+    <!-- AMR23 Body -->
+    <path d="M 50 150 L 120 145 C 180 140 240 135 300 130 C 350 120 400 110 450 100 L 750 100" fill="none" stroke="#00594F" stroke-width="2"/>
+    <!-- Nose & Complex Front Wing -->
+    <path d="M 50 150 L 10 155 L 10 165 L 100 165" fill="none" stroke="#00594F" stroke-width="2"/>
+    <path d="M 20 152 L 90 152" fill="none" stroke="#00594F" stroke-width="1.5"/>
+    <path d="M 30 148 L 80 148" fill="none" stroke="#00594F" stroke-width="1.5"/>
+    <!-- Halo -->
+    <path d="M 350 115 C 370 95 400 95 420 110" fill="none" stroke="#00594F" stroke-width="3"/>
+    <!-- Airbox -->
+    <path d="M 400 110 C 420 80 440 60 460 60 L 500 90" fill="none" stroke="#00594F" stroke-width="2"/>
+    <!-- Dramatic Sidepod Undercut -->
+    <path d="M 300 140 C 350 150 400 160 450 140 C 500 120 550 110 600 110" fill="none" stroke="#A3D977" stroke-width="2"/>
+    <path d="M 300 160 L 600 160 L 700 150" fill="none" stroke="#A3D977" stroke-width="2"/>
+    <!-- Rear Wing -->
+    <path d="M 700 100 L 700 40 L 750 40 L 750 100" fill="none" stroke="#00594F" stroke-width="2"/>
+    <!-- Wheels -->
+    <circle cx="200" cy="155" r="35" fill="none" stroke="#00594F" stroke-width="2"/>
+    <circle cx="650" cy="145" r="45" fill="none" stroke="#00594F" stroke-width="2"/>
+  </svg>
+
+  <svg class="era3-circuit" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <!-- Silverstone Simplified -->
+    <path d="M 100 20 L 150 20 C 160 20 170 30 170 40 C 170 50 160 60 150 70 L 140 80 C 130 90 120 100 120 110 C 120 120 130 130 140 140 L 150 150 C 160 160 150 170 140 170 L 60 170 C 50 170 40 160 40 150 C 40 140 50 130 60 120 C 70 110 80 100 80 90 C 80 80 70 70 60 60 C 50 50 40 40 50 30 C 60 20 80 20 100 20" fill="none" stroke="#A3D977" stroke-width="3"/>
+  </svg>
+
+  <!-- CERTS -->
+  <section id="certs" class="era3-head">
+    <div class="section-head reveal">
+      <h2>#05 // ASTON MARTIN ERA — TROPHY CABINET</h2>
+      <div class="line"></div>
+      <div class="tagline">"100 podiums. Still building the legacy."</div>
+    </div>
+    
+    <div class="cert-grid reveal">
+      <div class="cert-card">
+        <svg class="cert-laurel" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 15c2-2 4-4 4-7a4 4 0 0 0-8 0c0 3 2 5 4 7z"/><path d="M12 15v6"/><path d="M8 21h8"/><path d="M4 12c-2-2-2-5-1-7 1 0 4 0 6 2"/><path d="M20 12c2-2 2-5 1-7-1 0-4 0-6 2"/>
+        </svg>
+        <h3>AWS Solutions Architect Associate</h3>
+        <div class="issuer">ISSUED BY: Amazon</div>
+        <div class="season">SEASON: 2023</div>
+        <div class="cert-badge badge-platinum">PLATINUM</div>
+      </div>
+      
+      <div class="cert-card">
+        <svg class="cert-laurel" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 15c2-2 4-4 4-7a4 4 0 0 0-8 0c0 3 2 5 4 7z"/><path d="M12 15v6"/><path d="M8 21h8"/><path d="M4 12c-2-2-2-5-1-7 1 0 4 0 6 2"/><path d="M20 12c2-2 2-5 1-7-1 0-4 0-6 2"/>
+        </svg>
+        <h3>Google Cloud Associate</h3>
+        <div class="issuer">ISSUED BY: Google</div>
+        <div class="season">SEASON: 2022</div>
+        <div class="cert-badge badge-gold">GOLD</div>
+      </div>
+
+      <div class="cert-card">
+        <svg class="cert-laurel" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 15c2-2 4-4 4-7a4 4 0 0 0-8 0c0 3 2 5 4 7z"/><path d="M12 15v6"/><path d="M8 21h8"/><path d="M4 12c-2-2-2-5-1-7 1 0 4 0 6 2"/><path d="M20 12c2-2 2-5 1-7-1 0-4 0-6 2"/>
+        </svg>
+        <h3>Meta Frontend Developer</h3>
+        <div class="issuer">ISSUED BY: Meta</div>
+        <div class="season">SEASON: 2022</div>
+        <div class="cert-badge badge-gold">GOLD</div>
+      </div>
+
+      <div class="cert-card">
+        <svg class="cert-laurel" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 15c2-2 4-4 4-7a4 4 0 0 0-8 0c0 3 2 5 4 7z"/><path d="M12 15v6"/><path d="M8 21h8"/><path d="M4 12c-2-2-2-5-1-7 1 0 4 0 6 2"/><path d="M20 12c2-2 2-5 1-7-1 0-4 0-6 2"/>
+        </svg>
+        <h3>CS50 by Harvard</h3>
+        <div class="issuer">ISSUED BY: Harvard/edX</div>
+        <div class="season">SEASON: 2020</div>
+        <div class="cert-badge badge-silver">SILVER</div>
+      </div>
+
+      <div class="cert-card">
+        <svg class="cert-laurel" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 15c2-2 4-4 4-7a4 4 0 0 0-8 0c0 3 2 5 4 7z"/><path d="M12 15v6"/><path d="M8 21h8"/><path d="M4 12c-2-2-2-5-1-7 1 0 4 0 6 2"/><path d="M20 12c2-2 2-5 1-7-1 0-4 0-6 2"/>
+        </svg>
+        <h3>freeCodeCamp Full Stack</h3>
+        <div class="issuer">ISSUED BY: fCC</div>
+        <div class="season">SEASON: 2021</div>
+        <div class="cert-badge badge-silver">SILVER</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="era3-head">
+    <div class="contact-garage">
+      <!-- R26 -->
+      <svg viewBox="0 0 800 200" width="30%" xmlns="http://www.w3.org/2000/svg">
+        <path d="M 50 150 L 150 145 C 300 130 450 100 650 100 L 750 100 M 50 150 L 10 155 L 10 165 L 100 165 M 30 155 L 30 145 L 80 145 M 400 110 C 430 50 480 80 500 90 M 700 100 L 700 40 L 750 40 L 750 100 M 700 60 L 750 60" fill="none" stroke="#FFE500" stroke-width="3"/>
+        <circle cx="200" cy="160" r="25" fill="none" stroke="#FFE500" stroke-width="3"/>
+        <circle cx="650" cy="150" r="35" fill="none" stroke="#FFE500" stroke-width="3"/>
+      </svg>
+      <!-- F138 -->
+      <svg viewBox="0 0 800 200" width="35%" xmlns="http://www.w3.org/2000/svg">
+        <path d="M 800 150 L 700 145 C 550 130 450 110 300 100 M 800 150 L 850 155 L 850 165 L 750 165 M 820 155 L 820 145 L 770 145 M 750 160 L 700 160 L 700 170 L 750 170 M 450 110 C 420 50 370 80 350 90 M 300 100 C 200 110 100 140 100 140 M 150 100 L 150 40 L 100 40 L 100 100" fill="none" stroke="#DC0000" stroke-width="3"/>
+        <circle cx="650" cy="160" r="30" fill="none" stroke="#DC0000" stroke-width="3"/>
+        <circle cx="200" cy="150" r="40" fill="none" stroke="#DC0000" stroke-width="3"/>
+      </svg>
+      <!-- AMR23 -->
+      <svg viewBox="0 0 800 200" width="30%" xmlns="http://www.w3.org/2000/svg">
+        <path d="M 50 150 L 120 145 C 300 130 450 100 750 100 M 50 150 L 10 155 L 10 165 L 100 165 M 20 152 L 90 152 M 30 148 L 80 148 M 350 115 C 400 95 420 110 420 110 M 400 110 C 440 60 460 60 L 500 90 M 300 160 L 600 160 L 700 150 M 700 100 L 700 40 L 750 40 L 750 100" fill="none" stroke="#A3D977" stroke-width="3"/>
+        <circle cx="200" cy="155" r="35" fill="none" stroke="#A3D977" stroke-width="3"/>
+        <circle cx="650" cy="145" r="45" fill="none" stroke="#A3D977" stroke-width="3"/>
+      </svg>
+    </div>
+
+    <div class="section-head reveal">
+      <h2>#06 // ASTON MARTIN ERA — RADIO CHECK</h2>
+      <div class="line"></div>
+      <div class="tagline">"Box, box, box! — Let's build something together."</div>
+    </div>
+
+    <div class="terminal-form reveal">
+      <div class="form-row">
+        <div class="prompt">$</div>
+        <div class="label">driver_name ▮</div>
+        <input type="text" placeholder="Enter your name">
+      </div>
+      <div class="form-row">
+        <div class="prompt">$</div>
+        <div class="label">team_email ▮</div>
+        <input type="email" placeholder="Enter your email">
+      </div>
+      <div class="form-row">
+        <div class="prompt">$</div>
+        <div class="label">transmission ▮</div>
+        <textarea placeholder="Your message..."></textarea>
+      </div>
+      <button class="btn-send" onclick="this.innerHTML='TRANSMITTING... ⚡'">SEND TRANSMISSION ⚡</button>
+      
+      <div class="social-channels">
+        <a href="https://github.com/alexvelocity" target="_blank"><i class="fa-brands fa-github"></i> CH-01 &middot; GitHub</a>
+        <a href="https://linkedin.com/in/alexvelocity" target="_blank"><i class="fa-brands fa-linkedin"></i> CH-02 &middot; LinkedIn</a>
+        <a href="mailto:alex@velocity.dev"><i class="fa-solid fa-envelope"></i> CH-03 &middot; Email</a>
+        <a href="https://twitter.com/alexvelocity14" target="_blank"><i class="fa-brands fa-twitter"></i> CH-04 &middot; Twitter</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="left">&copy; ARYAN NAIK Racing Team</div>
+  <div class="footer-car">🏎️</div>
+  <div class="right">Powered by Coffee, Code &amp; Alonso's Determination</div>
+</footer>
+
+<!-- SCRIPTS -->
+<script>
+// --- Nav Active State & Hamburger ---
+const sections = document.querySelectorAll('section');
+const navLinks = document.querySelectorAll('.nav-center a');
+
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(sec => {
+    const secTop = sec.offsetTop;
+    if(pageYOffset >= secTop - 150){
+      current = sec.getAttribute('id');
+    }
+  });
+  navLinks.forEach(a => {
+    a.classList.remove('active');
+    if(a.getAttribute('href').includes(current)){
+      a.classList.add('active');
+    }
+  });
+});
+
+const hamburger = document.querySelector('.hamburger');
+const mobileMenu = document.querySelector('.mobile-menu');
+hamburger.addEventListener('click', () => {
+  mobileMenu.classList.toggle('open');
+});
+document.querySelectorAll('.mobile-menu a').forEach(a => {
+  a.addEventListener('click', () => mobileMenu.classList.remove('open'));
+});
+
+// --- Speed Lines ---
+const speedLinesContainer = document.getElementById('speed-lines');
+for(let i=0; i<20; i++){
+  const line = document.createElement('div');
+  line.className = 'speed-line';
+  line.style.top = Math.random() * 100 + '%';
+  line.style.width = Math.floor(Math.random() * 120 + 80) + 'px';
+  line.style.height = Math.random() > 0.5 ? '2px' : '1px';
+  line.style.animationDuration = (Math.random() * 2.5 + 1.5) + 's';
+  line.style.animationDelay = (Math.random() * 3) + 's';
+  speedLinesContainer.appendChild(line);
+}
+
+// --- Typewriter ---
+const roles = ["Full Stack Developer", "API Architect", "Open Source Contributor"];
+let roleIdx = 0;
+let charIdx = 0;
+let isDeleting = false;
+const twText = document.getElementById('typewriter-text');
+
+function type(){
+  const currentRole = roles[roleIdx];
+  if(isDeleting){
+    twText.textContent = currentRole.substring(0, charIdx - 1);
+    charIdx--;
+  } else {
+    twText.textContent = currentRole.substring(0, charIdx + 1);
+    charIdx++;
+  }
+
+  let speed = isDeleting ? 40 : 80;
+
+  if(!isDeleting && charIdx === currentRole.length){
+    speed = 2000;
+    isDeleting = true;
+  } else if(isDeleting && charIdx === 0){
+    isDeleting = false;
+    roleIdx = (roleIdx + 1) % roles.length;
+    speed = 500;
+  }
+  setTimeout(type, speed);
+}
+type();
+
+// --- Three.js Badge ---
+if(window.innerWidth > 768){
+  const container = document.getElementById('hero-badge');
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
+  camera.position.z = 4;
+  const renderer = new THREE.WebGLRenderer({alpha:true, antialias:true});
+  renderer.setSize(200, 200);
+  container.appendChild(renderer.domElement);
+
+  // Create texture for card
+  const canvas = document.createElement('canvas');
+  canvas.width = 256; canvas.height = 256;
+  const ctx = canvas.getContext('2d');
+  ctx.fillStyle = '#111';
+  ctx.fillRect(0,0,256,256);
+  ctx.strokeStyle = '#FFE500';
+  ctx.lineWidth = 4;
+  ctx.strokeRect(4,4,248,248);
+  ctx.fillStyle = '#FFE500';
+  ctx.font = 'bold 80px Orbitron';
+  ctx.textAlign = 'center';
+  ctx.fillText('#14', 128, 120);
+  ctx.font = '30px Rajdhani';
+  ctx.fillText('ALONSO', 128, 170);
+
+  const texture = new THREE.CanvasTexture(canvas);
+  const geometry = new THREE.BoxGeometry(2, 2.4, 0.15);
+  const material = new THREE.MeshStandardMaterial({
+    color: 0x111111,
+    map: texture,
+    roughness: 0.5,
+    metalness: 0.8
+  });
+  const cube = new THREE.Mesh(geometry, material);
+  scene.add(cube);
+
+  const light = new THREE.PointLight(0xFFE500, 1, 10);
+  light.position.set(2, 3, 2);
+  scene.add(light);
+  scene.add(new THREE.AmbientLight(0x333333));
+
+  function animate(){
+    requestAnimationFrame(animate);
+    cube.rotation.y += 0.008;
+    renderer.render(scene, camera);
+  }
+  animate();
+}
+
+// --- Intersection Observer for Reveal, Skills, Tacho ---
+const observerOptions = { threshold: 0.2 };
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      entry.target.classList.add('visible');
+      
+      // Animate Skill Bars
+      if(entry.target.id === 'skills'){
+        const rows = document.querySelectorAll('.skill-row');
+        rows.forEach((row, i) => {
+          setTimeout(() => {
+            const val = row.getAttribute('data-val');
+            const fill = row.querySelector('.fill');
+            const pctText = row.querySelector('.pct');
+            fill.style.width = val + '%';
+            
+            // Animate number count
+            let cur = 0;
+            const inc = val / 60;
+            const timer = setInterval(() => {
+              cur += inc;
+              if(cur >= val) { cur = val; clearInterval(timer); fill.classList.add('glow'); }
+              pctText.textContent = Math.floor(cur) + '% THROTTLE';
+            }, 20);
+            
+          }, i * 100);
+        });
+
+        // Animate Tachometer
+        const arc = document.getElementById('tacho-arc');
+        const needle = document.getElementById('tacho-needle');
+        const valText = document.getElementById('tacho-val');
+        
+        // 94 out of 100 = sweep 270 degrees total
+        // Dasharray is 400. Offset 400 = 0%. Offset 0 = 100%.
+        // 94% of 270 sweep = 253.8 deg.
+        // Arc offset = 400 - (0.94 * 400) = 24
+        
+        setTimeout(() => {
+          arc.style.transition = 'stroke-dashoffset 1.5s ease-out';
+          arc.style.strokeDashoffset = '24';
+          needle.style.transform = `rotate(253.8deg)`; // 270 * .94
+          
+          let tcur = 0;
+          const ttimer = setInterval(() => {
+            tcur += 94 / 60;
+            if(tcur >= 94) { tcur = 94; clearInterval(ttimer); }
+            valText.textContent = Math.floor(tcur);
+          }, 25);
+        }, 300);
+        
+        observer.unobserve(entry.target);
+      }
+    }
+  });
+}, observerOptions);
+
+document.querySelectorAll('.reveal, #skills').forEach(el => {
+  observer.observe(el);
+});
+
+// --- Custom F1 Cursor ---
+if (matchMedia('(pointer: fine)').matches) {
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(sec => {
+      if(pageYOffset >= sec.offsetTop - window.innerHeight/2){
+        current = sec.getAttribute('id');
+      }
+    });
+    
+    document.body.classList.remove('cursor-era2-active', 'cursor-era3-active');
+    
+    if (current === 'journey' || current === 'skills' || current === 'projects') {
+      document.body.classList.add('cursor-era2-active');
+    } else if (current === 'certs' || current === 'contact') {
+      document.body.classList.add('cursor-era3-active');
+    }
+  });
+}
+</script>
+</body>
+</html>
