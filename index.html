@@ -94,7 +94,7 @@ background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%
 .cat-header{display:flex;align-items:center;margin-bottom:1.5rem}
 .cat-title{font-family:var(--font-display);font-size:1rem;color:var(--renault-yellow);text-transform:uppercase;letter-spacing:.1em;margin-bottom:0;border:none;padding-left:0;margin-right:1rem}
 .cat-line{flex:1;height:1px;background:rgba(255,229,0,0.2)}
-.stack-grid{display:flex;flex-wrap:wrap;gap:1.5rem;position:relative;z-index:1}
+.stack-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:1.5rem;position:relative;z-index:1}
 .stack-card{background:transparent;border-radius:12px;width:140px;height:140px;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:transform .2s;cursor:default;position:relative;border:none}
 .stack-card::after{content:'';position:absolute;inset:0;background:#181818;border-radius:12px;z-index:-1;border:1px solid rgba(255,255,255,0.05)}
 .stack-card::before{content:'';position:absolute;inset:-3px;border-radius:14px;background:repeating-conic-gradient(#111 0% 25%, #333 0% 50%) 50% / 10px 10px;z-index:-2;opacity:0;transition:opacity .3s}
@@ -140,7 +140,7 @@ background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%
 .skill-row .pct{font-family:var(--font-label);font-size:.75rem;color:var(--ferrari-gold);width:90px;text-align:right;flex-shrink:0}
 /* PROJECTS */
 #projects{position:relative;padding:5rem 2rem;z-index:1}
-.proj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:2.5rem;max-width:1100px;margin:0 auto}
+.proj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));justify-content:center;gap:2.5rem;max-width:1100px;margin:0 auto}
 .proj-card, .proj-featured{height:420px;perspective:1000px;background:transparent;border:none;padding:0;overflow:visible}
 .proj-inner{position:relative;width:100%;height:100%;transition:transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);transform-style:preserve-3d;cursor:pointer}
 .proj-card:hover .proj-inner, .proj-featured:hover .proj-inner{transform:rotateY(180deg)}
@@ -178,7 +178,7 @@ repeating-linear-gradient(-45deg,rgba(255,255,255,.015) 0px,rgba(255,255,255,.01
 .era3-head .line{background:var(--am-lime)}
 /* CERTS */
 #certs{position:relative;padding:5rem 2rem;z-index:1}
-.cert-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.2rem}
+.cert-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));justify-content:center;gap:1.2rem}
 .cert-card{background:#0A2E28;border-top:3px solid var(--am-gold);padding:1.5rem;clip-path:polygon(0 0,100% 0,100% 85%,85% 100%,0 100%);transition:all .25s ease;cursor:default}
 .cert-card:hover{box-shadow:0 0 30px rgba(163,217,119,.15);border-top-color:var(--am-lime);transform:translateY(-4px)}
 .cert-laurel{width:32px;height:32px;margin-bottom:.6rem}
@@ -242,12 +242,6 @@ footer .left,footer .right{font-family:var(--font-label);font-size:.72rem;color:
 @media (pointer: fine) {
   body, a, button, input, textarea, .nav-center a {
     cursor: var(--cursor-era1) 16 0, auto !important;
-  }
-  body.cursor-era2-active, body.cursor-era2-active a, body.cursor-era2-active button, body.cursor-era2-active input, body.cursor-era2-active textarea {
-    cursor: var(--cursor-era2) 16 0, auto !important;
-  }
-  body.cursor-era3-active, body.cursor-era3-active a, body.cursor-era3-active button, body.cursor-era3-active input, body.cursor-era3-active textarea {
-    cursor: var(--cursor-era3) 16 0, auto !important;
   }
 }
 </style>
@@ -335,10 +329,6 @@ footer .left,footer .right{font-family:var(--font-label);font-size:.72rem;color:
     
     <div class="hero-image-card">
       <img src="aryan.jpeg" alt="Aryan Naik">
-      <div class="hero-card-title">
-        <h3>ARYAN NAIK</h3>
-        <p>FULL STACK DEVELOPER</p>
-      </div>
     </div>
   </div>
 </section>
@@ -356,28 +346,20 @@ footer .left,footer .right{font-family:var(--font-label);font-size:.72rem;color:
     <h3 class="cat-title">Frontend Engineering</h3>
     <div class="stack-grid">
       <div class="stack-card">
-        <img src="https://via.placeholder.com/80/222/FFE500?text=H5" alt="HTML" class="tech-logo">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg" alt="HTML" class="tech-logo">
         <div class="tech">HTML</div>
       </div>
       <div class="stack-card">
-        <img src="https://via.placeholder.com/80/222/FFE500?text=C3" alt="CSS" class="tech-logo">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg" alt="CSS" class="tech-logo">
         <div class="tech">CSS</div>
       </div>
       <div class="stack-card">
-        <img src="https://via.placeholder.com/80/222/FFE500?text=BS" alt="Bootstrap" class="tech-logo">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bootstrap/bootstrap-original.svg" alt="Bootstrap" class="tech-logo">
         <div class="tech">Bootstrap</div>
       </div>
       <div class="stack-card">
-        <img src="https://via.placeholder.com/80/222/FFE500?text=JS" alt="JavaScript" class="tech-logo">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" alt="JavaScript" class="tech-logo">
         <div class="tech">JavaScript</div>
-      </div>
-      <div class="stack-card">
-        <img src="https://via.placeholder.com/80/222/FFE500?text=Re" alt="React" class="tech-logo">
-        <div class="tech">React</div>
-      </div>
-      <div class="stack-card">
-        <img src="https://via.placeholder.com/80/222/FFE500?text=TW" alt="TailwindCSS" class="tech-logo">
-        <div class="tech">TailwindCSS</div>
       </div>
     </div>
   </div>
@@ -386,16 +368,8 @@ footer .left,footer .right{font-family:var(--font-label);font-size:.72rem;color:
     <h3 class="cat-title">Backend Architecture</h3>
     <div class="stack-grid">
       <div class="stack-card">
-        <img src="https://via.placeholder.com/80/222/FFE500?text=Py" alt="Python (Flask)" class="tech-logo">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" alt="Python (Flask)" class="tech-logo">
         <div class="tech">Python (Flask)</div>
-      </div>
-      <div class="stack-card">
-        <img src="https://via.placeholder.com/80/222/FFE500?text=Ja" alt="Java" class="tech-logo">
-        <div class="tech">Java</div>
-      </div>
-      <div class="stack-card">
-        <img src="https://via.placeholder.com/80/222/FFE500?text=Nd" alt="Node.js" class="tech-logo">
-        <div class="tech">Node.js</div>
       </div>
     </div>
   </div>
@@ -404,16 +378,12 @@ footer .left,footer .right{font-family:var(--font-label);font-size:.72rem;color:
     <h3 class="cat-title">Data Storage & Management</h3>
     <div class="stack-grid">
       <div class="stack-card">
-        <img src="https://via.placeholder.com/80/222/FFE500?text=MG" alt="MongoDB" class="tech-logo">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-original.svg" alt="MongoDB" class="tech-logo">
         <div class="tech">MongoDB</div>
       </div>
       <div class="stack-card">
-        <img src="https://via.placeholder.com/80/222/FFE500?text=PG" alt="PostgreSQL" class="tech-logo">
-        <div class="tech">PostgreSQL</div>
-      </div>
-      <div class="stack-card">
-        <img src="https://via.placeholder.com/80/222/FFE500?text=Rd" alt="Redis" class="tech-logo">
-        <div class="tech">Redis</div>
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/firebase/firebase-plain.svg" alt="Firebase" class="tech-logo">
+        <div class="tech">Firebase</div>
       </div>
     </div>
   </div>
@@ -422,16 +392,12 @@ footer .left,footer .right{font-family:var(--font-label);font-size:.72rem;color:
     <h3 class="cat-title">Infrastructure & DevOps</h3>
     <div class="stack-grid">
       <div class="stack-card">
-        <img src="https://via.placeholder.com/80/222/FFE500?text=Dk" alt="Docker" class="tech-logo">
-        <div class="tech">Docker</div>
-      </div>
-      <div class="stack-card">
-        <img src="https://via.placeholder.com/80/222/FFE500?text=AW" alt="AWS" class="tech-logo">
-        <div class="tech">AWS</div>
-      </div>
-      <div class="stack-card">
-        <img src="https://via.placeholder.com/80/222/FFE500?text=Gt" alt="Git" class="tech-logo">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" alt="Git" class="tech-logo">
         <div class="tech">Git</div>
+      </div>
+      <div class="stack-card">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg" alt="GitHub" class="tech-logo" style="filter: invert(1);">
+        <div class="tech">GitHub</div>
       </div>
     </div>
 </section>
@@ -556,21 +522,18 @@ footer .left,footer .right{font-family:var(--font-label);font-size:.72rem;color:
     <div class="skills-grid reveal">
       <div class="skills-bars">
         <div class="skill-group-label">[AERO PACKAGE]</div>
-        <div class="skill-row" data-val="92"><div class="name">React</div><div class="track"><div class="fill"></div></div><div class="pct">0% THROTTLE</div></div>
         <div class="skill-row" data-val="88"><div class="name">Next.js</div><div class="track"><div class="fill"></div></div><div class="pct">0% THROTTLE</div></div>
         <div class="skill-row" data-val="85"><div class="name">TypeScript</div><div class="track"><div class="fill"></div></div><div class="pct">0% THROTTLE</div></div>
         
         <div class="skill-group-label">[POWER UNIT]</div>
-        <div class="skill-row" data-val="80"><div class="name">Node.js</div><div class="track"><div class="fill"></div></div><div class="pct">0% THROTTLE</div></div>
         <div class="skill-row" data-val="75"><div class="name">Python</div><div class="track"><div class="fill"></div></div><div class="pct">0% THROTTLE</div></div>
         
         <div class="skill-group-label">[CHASSIS]</div>
-        <div class="skill-row" data-val="70"><div class="name">PostgreSQL</div><div class="track"><div class="fill"></div></div><div class="pct">0% THROTTLE</div></div>
+        <div class="skill-row" data-val="85"><div class="name">Firebase</div><div class="track"><div class="fill"></div></div><div class="pct">0% THROTTLE</div></div>
         
         <div class="skill-group-label">[PIT WALL]</div>
-        <div class="skill-row" data-val="65"><div class="name">Docker</div><div class="track"><div class="fill"></div></div><div class="pct">0% THROTTLE</div></div>
-        <div class="skill-row" data-val="62"><div class="name">AWS</div><div class="track"><div class="fill"></div></div><div class="pct">0% THROTTLE</div></div>
         <div class="skill-row" data-val="95"><div class="name">Git</div><div class="track"><div class="fill"></div></div><div class="pct">0% THROTTLE</div></div>
+        <div class="skill-row" data-val="90"><div class="name">GitHub</div><div class="track"><div class="fill"></div></div><div class="pct">0% THROTTLE</div></div>
       </div>
 
       <div class="tacho-container">
@@ -620,7 +583,7 @@ footer .left,footer .right{font-family:var(--font-label);font-size:.72rem;color:
             <div class="proj-badge">P1 &middot; FASTEST LAP</div>
           </div>
           <div class="proj-back">
-            <h3>PitStop API</h3>
+            <h3>NeuroLearn AI</h3>
             <p class="desc">Real-time race analytics REST API with live data streaming. Features high-frequency updates and neural-link telemetry.</p>
             <div class="tyre-tags">
               <span class="tyre-tag tyre-soft">🔴 Node.js</span>
@@ -645,7 +608,7 @@ footer .left,footer .right{font-family:var(--font-label);font-size:.72rem;color:
             <div class="proj-badge">STATUS: LIVE</div>
           </div>
           <div class="proj-back">
-            <h3>GridSync</h3>
+            <h3>NeonSync</h3>
             <p class="desc">Real-time grid positioning and telemetry synchronization dashboard. Built for precision monitoring and team collaboration.</p>
             <div class="tyre-tags">
               <span class="tyre-tag tyre-soft">🔴 React</span>
@@ -670,7 +633,7 @@ footer .left,footer .right{font-family:var(--font-label);font-size:.72rem;color:
             <div class="proj-badge">STATUS: STABLE</div>
           </div>
           <div class="proj-back">
-            <h3>LapLogger</h3>
+            <h3>Sportequity</h3>
             <p class="desc">Offline-first mobile web app for track day enthusiasts to log laps. GPS-based timing with automated sector detection.</p>
             <div class="tyre-tags">
               <span class="tyre-tag tyre-soft">🔴 Python</span>
@@ -728,7 +691,7 @@ footer .left,footer .right{font-family:var(--font-label);font-size:.72rem;color:
     <div class="cert-grid reveal">
       <div class="cert-card">
         <svg class="cert-laurel" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 15c2-2 4-4 4-7a4 4 0 0 0-8 0c0 3 2 5 4 7z"/><path d="M12 15v6"/><path d="M8 21h8"/><path d="M4 12c-2-2-2-5-1-7 1 0 4 0 6 2"/><path d="M20 12c2-2 2-5 1-7-1 0-4 0-6 2"/>
+          <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>
         </svg>
         <h3>AWS Solutions Architect Associate</h3>
         <div class="issuer">ISSUED BY: Amazon</div>
@@ -738,7 +701,7 @@ footer .left,footer .right{font-family:var(--font-label);font-size:.72rem;color:
       
       <div class="cert-card">
         <svg class="cert-laurel" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 15c2-2 4-4 4-7a4 4 0 0 0-8 0c0 3 2 5 4 7z"/><path d="M12 15v6"/><path d="M8 21h8"/><path d="M4 12c-2-2-2-5-1-7 1 0 4 0 6 2"/><path d="M20 12c2-2 2-5 1-7-1 0-4 0-6 2"/>
+          <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>
         </svg>
         <h3>Google Cloud Associate</h3>
         <div class="issuer">ISSUED BY: Google</div>
@@ -748,7 +711,7 @@ footer .left,footer .right{font-family:var(--font-label);font-size:.72rem;color:
 
       <div class="cert-card">
         <svg class="cert-laurel" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 15c2-2 4-4 4-7a4 4 0 0 0-8 0c0 3 2 5 4 7z"/><path d="M12 15v6"/><path d="M8 21h8"/><path d="M4 12c-2-2-2-5-1-7 1 0 4 0 6 2"/><path d="M20 12c2-2 2-5 1-7-1 0-4 0-6 2"/>
+          <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>
         </svg>
         <h3>Meta Frontend Developer</h3>
         <div class="issuer">ISSUED BY: Meta</div>
@@ -758,7 +721,7 @@ footer .left,footer .right{font-family:var(--font-label);font-size:.72rem;color:
 
       <div class="cert-card">
         <svg class="cert-laurel" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 15c2-2 4-4 4-7a4 4 0 0 0-8 0c0 3 2 5 4 7z"/><path d="M12 15v6"/><path d="M8 21h8"/><path d="M4 12c-2-2-2-5-1-7 1 0 4 0 6 2"/><path d="M20 12c2-2 2-5 1-7-1 0-4 0-6 2"/>
+          <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>
         </svg>
         <h3>CS50 by Harvard</h3>
         <div class="issuer">ISSUED BY: Harvard/edX</div>
@@ -768,7 +731,7 @@ footer .left,footer .right{font-family:var(--font-label);font-size:.72rem;color:
 
       <div class="cert-card">
         <svg class="cert-laurel" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 15c2-2 4-4 4-7a4 4 0 0 0-8 0c0 3 2 5 4 7z"/><path d="M12 15v6"/><path d="M8 21h8"/><path d="M4 12c-2-2-2-5-1-7 1 0 4 0 6 2"/><path d="M20 12c2-2 2-5 1-7-1 0-4 0-6 2"/>
+          <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>
         </svg>
         <h3>freeCodeCamp Full Stack</h3>
         <div class="issuer">ISSUED BY: fCC</div>
@@ -851,14 +814,19 @@ const navLinks = document.querySelectorAll('.nav-center a');
 window.addEventListener('scroll', () => {
   let current = '';
   sections.forEach(sec => {
-    const secTop = sec.offsetTop;
-    if(pageYOffset >= secTop - 150){
+    const rect = sec.getBoundingClientRect();
+    if(rect.top <= 200){
       current = sec.getAttribute('id');
     }
   });
+  
+  if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 10) {
+    current = sections[sections.length - 1].getAttribute('id');
+  }
+
   navLinks.forEach(a => {
     a.classList.remove('active');
-    if(a.getAttribute('href').includes(current)){
+    if(current && a.getAttribute('href') === '#' + current){
       a.classList.add('active');
     }
   });
@@ -1030,24 +998,7 @@ document.querySelectorAll('.reveal, #skills').forEach(el => {
 });
 
 // --- Custom F1 Cursor ---
-if (matchMedia('(pointer: fine)').matches) {
-  window.addEventListener('scroll', () => {
-    let current = '';
-    sections.forEach(sec => {
-      if(pageYOffset >= sec.offsetTop - window.innerHeight/2){
-        current = sec.getAttribute('id');
-      }
-    });
-    
-    document.body.classList.remove('cursor-era2-active', 'cursor-era3-active');
-    
-    if (current === 'journey' || current === 'skills' || current === 'projects') {
-      document.body.classList.add('cursor-era2-active');
-    } else if (current === 'certs' || current === 'contact') {
-      document.body.classList.add('cursor-era3-active');
-    }
-  });
-}
+// Removed cursor changing based on era to keep only one color
 </script>
 </body>
 </html>
