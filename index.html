@@ -131,9 +131,9 @@ background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%
 .tl-card{background:#0D0D0D;border-top:3px solid var(--ferrari-red);overflow:hidden;padding:0}
 .tl-tricolour{height:3px;width:100%;background:linear-gradient(90deg,#DC0000 33%,#fff 33% 66%,#009246 66%)}
 .tl-card-inner{padding:1.2rem}
-.tl-card .gp-tag{font-family:var(--font-label);font-size:.62rem;color:var(--ferrari-gold);letter-spacing:.1em}
-.tl-card h3{font-family:var(--font-display);font-size:1rem;color:#fff;margin:.3rem 0}
-.tl-card p{font-family:var(--font-body);font-size:1rem;color:rgba(255,255,255,.6)}
+.tl-card .gp-tag{font-family:var(--font-label);font-size:.85rem;color:var(--ferrari-gold);letter-spacing:.1em}
+.tl-card h3{font-family:var(--font-display);font-size:1.6rem;color:#fff;margin:.3rem 0}
+.tl-card p{font-family:var(--font-body);font-size:1.15rem;color:rgba(255,255,255,.8);line-height:1.5}
 /* SKILLS */
 #skills{position:relative;padding:10rem 10%;z-index:1}
 .skills-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;max-width:1000px;margin:0 auto}
@@ -149,18 +149,18 @@ background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%
 .skill-row .pct{font-family:var(--font-label);font-size:1.1rem;color:var(--ferrari-gold);width:120px;text-align:right;flex-shrink:0}
 /* PROJECTS */
 #projects{position:relative;padding:10rem 10%;z-index:1}
-.proj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));justify-content:center;gap:2.5rem;max-width:1100px;margin:0 auto}
-.proj-card, .proj-featured{height:420px;perspective:1000px;background:transparent;border:none;padding:0;overflow:visible}
+.proj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(480px,1fr));justify-content:center;gap:2.5rem;max-width:1100px;margin:0 auto}
+.proj-card, .proj-featured{height:320px;perspective:1000px;background:transparent;border:none;padding:0;overflow:visible}
 .proj-inner{position:relative;width:100%;height:100%;transition:transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);transform-style:preserve-3d;cursor:pointer}
 .proj-card:hover .proj-inner, .proj-featured:hover .proj-inner{transform:rotateY(180deg)}
 .proj-front, .proj-back{position:absolute;width:100%;height:100%;backface-visibility:hidden;border-radius:4px;overflow:hidden;display:flex;flex-direction:column}
 .proj-front{background:#0D0D0D;z-index:2}
 .proj-featured .proj-front{border-top:3px solid var(--ferrari-red)}
 .proj-card .proj-front{border-top:3px solid var(--ferrari-red)}
-.proj-back{background:#111;color:#fff;transform:rotateY(180deg);z-index:1;padding:2rem;border:1px solid var(--ferrari-red);justify-content:center}
+.proj-back{background:#111;color:#fff;transform:rotateY(180deg);z-index:1;padding:1.5rem;border:1px solid var(--ferrari-red);justify-content:center}
 .proj-img{width:100%;height:100%;overflow:hidden}
 .proj-img img{width:100%;height:100%;object-fit:cover}
-.proj-badge{position:absolute;bottom:1.5rem;right:1.5rem;border:1.5px solid var(--ferrari-gold);color:var(--ferrari-gold);font-family:var(--font-label);font-size:.7rem;padding:.2rem .6rem;z-index:3;background:rgba(13,13,13,0.8);backdrop-filter:blur(4px)}
+.proj-badge{position:absolute;bottom:1.5rem;right:1.5rem;border:1.5px solid var(--ferrari-gold);color:var(--ferrari-gold);font-family:var(--font-label);font-size:1rem;padding:.4rem 1rem;z-index:3;background:rgba(13,13,13,0.8);backdrop-filter:blur(4px)}
 .proj-inner h3{font-family:var(--font-display);font-size:1.5rem;color:var(--ferrari-red);margin-bottom:1rem;text-transform:uppercase}
 .proj-inner .desc{font-family:var(--font-body);font-size:1.1rem;color:rgba(255,255,255,.8);margin-bottom:1.5rem;line-height:1.6}
 .tyre-tags{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.5rem}
@@ -235,7 +235,13 @@ footer .left,footer .right{font-family:var(--font-label);font-size:.72rem;color:
   .tacho-svg{width:100%;max-width:220px;height:auto;margin:0 auto}
   
   .proj-grid{grid-template-columns:1fr;gap:1.5rem}
-  .proj-card,.proj-featured{height:380px}
+  .proj-card,.proj-featured{height:420px}
+  .proj-back{padding:1.2rem; overflow-y:auto}
+  .proj-inner h3{font-size:1.3rem; margin-bottom:0.5rem}
+  .proj-inner .desc{font-size:0.95rem; margin-bottom:1rem; line-height:1.4}
+  .tyre-tags{margin-bottom:1rem}
+  .proj-stats{margin-bottom:1rem}
+  .proj-btns{flex-direction:column; gap:0.5rem}
   
   .timeline::before{left:60px}
   .timeline::after{left:60px}
@@ -524,9 +530,9 @@ footer .left,footer .right{font-family:var(--font-label);font-size:.72rem;color:
         <div class="tl-card">
           <div class="tl-tricolour"></div>
           <div class="tl-card-inner">
-            <div class="gp-tag">GP #01 &nbsp;&middot;&nbsp; SEASON 2019</div>
+            <div class="gp-tag">GP #01 &nbsp;&middot;&nbsp; AUGUST 2024</div>
             <h3>FIRST COMMIT</h3>
-            <p>"Started with HTML. Broke everything. Loved it."</p>
+            <p>"Started for web dev and data science."</p>
           </div>
         </div>
       </div>
@@ -535,9 +541,9 @@ footer .left,footer .right{font-family:var(--font-label);font-size:.72rem;color:
         <div class="tl-card">
           <div class="tl-tricolour"></div>
           <div class="tl-card-inner">
-            <div class="gp-tag">GP #02 &nbsp;&middot;&nbsp; SEASON 2020</div>
+            <div class="gp-tag">GP #02 &nbsp;&middot;&nbsp; SEPTEMBER 2025</div>
             <h3>FIRST LIVE APP</h3>
-            <p>"Deployed a weather app. Felt like a podium finish."</p>
+            <p>"Deployed SportEquity."</p>
           </div>
         </div>
       </div>
@@ -546,9 +552,9 @@ footer .left,footer .right{font-family:var(--font-label);font-size:.72rem;color:
         <div class="tl-card">
           <div class="tl-tricolour"></div>
           <div class="tl-card-inner">
-            <div class="gp-tag">GP #03 &nbsp;&middot;&nbsp; SEASON 2021</div>
-            <h3>FIRST INTERNSHIP</h3>
-            <p>"ABC Tech, Frontend Team. Real code. Real stakes."</p>
+            <div class="gp-tag">GP #03 &nbsp;&middot;&nbsp; MARCH 2026</div>
+            <h3>FIRST INDIVIDUAL BUILD</h3>
+            <p>"NeonSync: A Task manager."</p>
           </div>
         </div>
       </div>
@@ -557,9 +563,9 @@ footer .left,footer .right{font-family:var(--font-label);font-size:.72rem;color:
         <div class="tl-card">
           <div class="tl-tricolour"></div>
           <div class="tl-card-inner">
-            <div class="gp-tag">GP #04 &nbsp;&middot;&nbsp; SEASON 2022</div>
-            <h3>FIRST FULL-STACK BUILD</h3>
-            <p>"PitStop API — designed, built, shipped alone."</p>
+            <div class="gp-tag">GP #04 &nbsp;&middot;&nbsp; APRIL 2026</div>
+            <h3>WON PODIUMS</h3>
+            <p>"AlgorithmX & Byteshow."</p>
           </div>
         </div>
       </div>
@@ -568,20 +574,9 @@ footer .left,footer .right{font-family:var(--font-label);font-size:.72rem;color:
         <div class="tl-card">
           <div class="tl-tricolour"></div>
           <div class="tl-card-inner">
-            <div class="gp-tag">GP #05 &nbsp;&middot;&nbsp; SEASON 2023</div>
-            <h3>FREELANCE LAUNCH</h3>
-            <p>"Took clients. Delivered on time. No excuses."</p>
-          </div>
-        </div>
-      </div>
-      <div class="tl-item reveal">
-        <div class="tl-node"></div>
-        <div class="tl-card">
-          <div class="tl-tricolour"></div>
-          <div class="tl-card-inner">
-            <div class="gp-tag">GP #06 &nbsp;&middot;&nbsp; SEASON 2024</div>
-            <h3>OPEN SOURCE CONTRIBUTOR</h3>
-            <p>"First PR merged. Community recognized the work."</p>
+            <div class="gp-tag">GP #05 &nbsp;&middot;&nbsp; APRIL 2026</div>
+            <h3 style="display: inline-block; background: var(--ferrari-gold); color: #000; padding: 0.3rem 0.8rem; border-radius: 2px; margin: 0.5rem 0;">CURRENT FORM</h3>
+            <p>"Co-Founder @ Syntax Syndicate. Building the future of AI-driven products."</p>
           </div>
         </div>
       </div>
@@ -645,10 +640,10 @@ footer .left,footer .right{font-family:var(--font-label);font-size:.72rem;color:
         <div class="proj-inner">
           <div class="proj-front">
             <div class="proj-img">
-              <img src="NS.png" alt="NeonSync Preview">
+              <img src="NS.png" alt="NeonSync Preview" style="transform: scale(0.9); object-fit: contain;">
             </div>
             <div class="proj-tricolour"></div>
-            <div class="proj-badge">P1 &middot; FASTEST LAP</div>
+            <div class="proj-badge"><b><i>NEONSYNC</i></b></div>
           </div>
           <div class="proj-back">
             <h3>NeonSync</h3>
@@ -673,7 +668,7 @@ footer .left,footer .right{font-family:var(--font-label);font-size:.72rem;color:
             <div class="proj-img">
               <img src="gridsync.png" alt="NeuroLearn AI Preview">
             </div>
-            <div class="proj-badge">STATUS: LIVE</div>
+            <div class="proj-badge"><b><i>NEUROLEARN AI</i></b></div>
           </div>
           <div class="proj-back">
             <h3>NeuroLearn AI</h3>
@@ -696,9 +691,9 @@ footer .left,footer .right{font-family:var(--font-label);font-size:.72rem;color:
         <div class="proj-inner">
           <div class="proj-front">
             <div class="proj-img">
-              <img src="laplogger.png" alt="SportEquity Preview">
+              <img src="SE.png" alt="SportEquity Preview" style="transform: scale(0.9); object-fit: contain;">
             </div>
-            <div class="proj-badge">STATUS: STABLE</div>
+            <div class="proj-badge"><b><i>SPORTEQUITY</i></b></div>
           </div>
           <div class="proj-back">
             <h3>SportEquity</h3>
@@ -710,7 +705,7 @@ footer .left,footer .right{font-family:var(--font-label);font-size:.72rem;color:
             </div>
             <div class="proj-stats">⭐ 43 &nbsp;&middot;&nbsp; STATUS: STABLE</div>
             <div class="proj-btns">
-              <a href="#" class="proj-btn proj-btn-outline">RACE REPLAY</a>
+              <a href="https://sportequity-xulu.onrender.com/login" class="proj-btn proj-btn-outline" target="_blank">RACE REPLAY</a>
               <a href="https://github.com/Infinus-77/SportEquity_V2.git" class="proj-btn proj-btn-fill" target="_blank"><i class="fab fa-github"></i> GITHUB</a>
 <!--  -->            </div>
           </div>
