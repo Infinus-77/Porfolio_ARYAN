@@ -52,7 +52,7 @@ background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%
 /* HERO */
 #era{position:relative;height:100vh;overflow:hidden;display:flex;align-items:flex-end;justify-content:flex-start;padding:6rem 5%}
 #era::before{content:'';position:absolute;inset:0;background:linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.5) 30%, rgba(0,0,0,0.5) 70%, rgba(0,0,0,1) 100%);z-index:0;pointer-events:none}
-.hero-video-bg{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:-1;opacity:0.6;pointer-events:none}
+.hero-video-bg{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;object-position:center;z-index:-1;opacity:0.6;pointer-events:none}
 .speed-line{position:absolute;height:1px;background:rgba(253,208,0,.12);transform:rotate(-15deg);animation:speedLine 3s linear infinite}
 @keyframes speedLine{0%{transform:rotate(-15deg) translateX(-100vw)}100%{transform:rotate(-15deg) translateX(100vw)}}
 .hero-car-svg{position:absolute;right:-5%;bottom:0;width:65vw;opacity:.07;z-index:1;pointer-events:none}
@@ -198,15 +198,24 @@ background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%
 .status-dot{width:5px;height:5px;border-radius:50%;background:#0f0;animation:blink 1.5s infinite}
 
 @media(max-width:768px){
-  .f1-wheel-wrapper{padding:1rem}
+  .f1-wheel-wrapper{padding:0.5rem}
   .wheel-grip{display:none}
-  .wheel-body{border-radius:30px;padding:1rem}
-  .dash-body{grid-template-columns:1fr;gap:1rem}
-  .gear-display{width:100%;height:100px;border-radius:10px;flex-direction:row;gap:1rem}
-  .gear-num{font-size:3.5rem}
-  .sw-dash{padding:1.5rem 1rem 1rem}
-  .rpm-led{width:12px;height:6px}
   .wheel-btn{display:none}
+  .rotary-dial{display:none}
+  .wheel-body{border-radius:16px;padding:0.5rem;background:#0a0a0a;border:1px solid #1a1a1a;box-shadow:none;background-image:none}
+  .wheel-body::before{display:none}
+  .sw-dash{padding:1.2rem 0.8rem 0.8rem;border-radius:10px;border-width:2px;max-width:100%}
+  .rpm-strip{gap:2px;margin-bottom:1rem;padding:0 0.5rem}
+  .rpm-led{width:10px;height:5px}
+  .dash-body{grid-template-columns:1fr;gap:0.8rem}
+  .gear-display{width:100%;height:80px;border-radius:10px;flex-direction:row;gap:1rem}
+  .gear-num{font-size:3rem}
+  .gear-label{font-size:.55rem}
+  .dash-cell{padding:0.6rem 0.8rem}
+  .cell-value{font-size:1.2rem}
+  .cell-label{font-size:.55rem}
+  .dash-status{flex-wrap:wrap;gap:0.5rem;justify-content:center}
+  .status-item{font-size:.55rem}
 }
 
 /* PROJECTS */
@@ -249,7 +258,7 @@ repeating-linear-gradient(-45deg,rgba(255,255,255,.015) 0px,rgba(255,255,255,.01
 .era3-head .line{background:linear-gradient(90deg, var(--am-green), var(--renault-yellow))}
 /* CERTS */
 #certs{position:relative;padding:10rem 10%;z-index:1;overflow:hidden;border-bottom:1px solid rgba(163,217,119,0.2)}
-#certs::before{content:'';position:absolute;inset:0;background:url('amr23.png') center/cover no-repeat;opacity:0.12;z-index:-2}
+#certs::before{content:'';position:absolute;inset:0;background:url('amr23.png') center/cover no-repeat;opacity:0.12;z-index:-2;background-position:center center}
 #certs::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom, rgba(8,8,8,1) 0%, transparent 15%, transparent 85%, rgba(8,8,8,0) 100%);z-index:-1}
 .cert-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));justify-content:center;gap:1.2rem}
 .cert-card{background:#0A2E28;border-top:3px solid var(--am-gold);padding:1.5rem;clip-path:polygon(0 0,100% 0,100% 85%,85% 100%,0 100%);transition:all .25s ease;cursor:default}
@@ -315,11 +324,14 @@ footer .left,footer .right{font-family:var(--font-label);font-size:.72rem;color:
 @keyframes footerCar{0%{transform:translateX(-120px) scaleX(-1)}100%{transform:translateX(calc(100vw + 120px)) scaleX(-1)}}
 /* RESPONSIVE */
 @media(max-width:768px){
-  #nav{padding:0 1rem}
+  #nav{padding:0 1rem;justify-content:space-between}
   .nav-center{display:none}
-  .hamburger{display:block}
+  .hamburger{display:block;margin-left:auto}
+  .nav-right .rpm-bar,.nav-right .live-dot,.nav-right .live-text{display:none}
   #hero-badge{display:none}
   .hero-car-svg{width:90vw;right:-15%}
+  .hero-video-bg{object-position:32% center;opacity:0.5}
+  #era::before{background:linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 30%, rgba(0,0,0,0.4) 70%, rgba(0,0,0,0.95) 100%)}
   .about-layout{padding:0 1.5rem}
   
   #about,#stack,#journey,#skills,#projects,#certs,#contact{padding:4rem 1.5rem !important}
@@ -345,6 +357,11 @@ footer .left,footer .right{font-family:var(--font-label);font-size:.72rem;color:
   .form-row{flex-direction:column;align-items:flex-start;gap:0.2rem;border-bottom:1px solid rgba(163,217,119,0.1)}
   .form-row .label{width:100%;font-size:0.75rem}
   .form-row input,.form-row textarea{width:100%;padding:0.5rem 0}
+  #certs::before{opacity:0.15;background-size:cover;background-position:25% center}
+  .radio-console{padding:1.5rem 1rem}
+  .comm-hub-grid{margin-top:2rem}
+  .comm-tag{padding:0.6rem 1rem}
+  .tag-label{font-size:1rem}
 }
 @media(max-width:900px){
   #era{height:auto;min-height:100vh;padding:120px 1.5rem 60px 1.5rem;align-items:flex-end;justify-content:flex-start}
