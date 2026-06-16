@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://aryan-naik.syntaxsyndicate.co.in/sitemap.xml

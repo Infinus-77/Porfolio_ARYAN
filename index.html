@@ -9,6 +9,7 @@
 <meta name="author" content="Aryan Naik">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://aryan-naik.syntaxsyndicate.co.in/">
+<link rel="preload" href="assets/ALOVID.mp4" as="video" type="video/mp4">
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website">
@@ -29,20 +30,34 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz:wght@200..700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
 <link rel="stylesheet" href="style.css">
 <!-- JSON-LD Structured Data -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "Person",
-  "name": "Aryan Naik",
-  "jobTitle": "Full Stack Developer",
-  "url": "https://aryan-naik.syntaxsyndicate.co.in/",
-  "image": "https://aryan-naik.syntaxsyndicate.co.in/assets/aryan.jpeg",
-  "sameAs": [
-    "https://www.linkedin.com/in/aryan-naik-933403375/",
-    "https://github.com/Infinus-77"
+  "@graph": [
+    {
+      "@type": "Person",
+      "name": "Aryan Naik",
+      "jobTitle": "Full Stack Developer",
+      "url": "https://aryan-naik.syntaxsyndicate.co.in/",
+      "image": "https://aryan-naik.syntaxsyndicate.co.in/assets/aryan.jpeg",
+      "sameAs": [
+        "https://www.linkedin.com/in/aryan-naik-933403375/",
+        "https://github.com/Infinus-77"
+      ],
+      "knowsAbout": ["React", "Node.js", "Python", "AWS", "Full Stack Development", "Frontend Engineering", "Backend Architecture", "MongoDB", "Firebase"],
+      "alumniOf": {
+        "@type": "CollegeOrUniversity",
+        "name": "AIKTC"
+      }
+    },
+    {
+      "@type": "WebSite",
+      "name": "Aryan Naik | Full Stack Developer",
+      "url": "https://aryan-naik.syntaxsyndicate.co.in/"
+    }
   ]
 }
 </script>
@@ -51,7 +66,7 @@
 <!-- NAV -->
 <nav id="nav">
   <div class="nav-left">
-    <img src="assets/ALONSO.png" alt="Logo" class="nav-badge" style="object-fit: cover; border-radius: 4px;">
+    <img src="assets/ALONSO.png" alt="Aryan Naik Portfolio Logo" class="nav-badge" style="object-fit: cover; border-radius: 4px;">
     <div class="nav-logo">ARNK.F1</div>
   </div>
   <div class="nav-center">
@@ -133,7 +148,7 @@
 <!-- ABOUT ME -->
 <section id="about" class="era1-head">
   <div class="section-head reveal">
-    <h2>DRIVER BRIEFING // ABOUT ME</h2>
+    <h2>DRIVER BRIEFING // ABOUT ARYAN NAIK</h2>
     <div class="line"></div>
     <div class="tagline">"Driven by performance, fueled by code."</div>
   </div>
@@ -147,7 +162,7 @@
         <div class="rivet rivet-bl"></div>
         <div class="rivet rivet-br"></div>
         <div class="danger-stripes"></div>
-        <img src="assets/aryan.jpeg" alt="Aryan Naik" style="border:none;">
+        <img src="assets/aryan.jpeg" alt="Aryan Naik - Full Stack Developer" style="border:none;">
         <div class="hero-card-title">
           <h3 style="margin:0; font-size:1.2rem;">ARYAN NAIK</h3>
           <p style="margin:0; font-size:0.7rem; color:var(--am-lime);">DRIVER ID: #14 // CO-FOUNDER & DEV</p>
@@ -211,7 +226,7 @@
 <section id="stack" class="era1-head">
   <div class="stack-bg-glow"></div>
   <div class="section-head reveal">
-    <h2>THE CONSTRUCTOR'S ARSENAL</h2>
+    <h2>THE CONSTRUCTOR'S ARSENAL // FULL STACK TECHNOLOGIES</h2>
     <div class="line"></div>
     <div class="tagline">"Back-to-back championships don't happen by accident."</div>
   </div>
@@ -491,7 +506,7 @@
         <div class="proj-inner">
           <div class="proj-front">
             <div class="proj-img">
-              <img src="assets/NS.png" alt="NeonSync Preview" style="transform: scale(0.9); object-fit: contain;">
+              <img src="assets/NS.png" alt="NeonSync Task Management App Interface Preview" style="transform: scale(0.9); object-fit: contain;">
             </div>
             <div class="proj-tricolour"></div>
             <div class="proj-badge"><b><i>NEONSYNC</i></b></div>
@@ -517,7 +532,7 @@
         <div class="proj-inner">
           <div class="proj-front">
             <div class="proj-img">
-              <img src="assets/NL.png" alt="NeuroLearn AI Preview" loading="lazy">
+              <img src="assets/NL.png" alt="NeuroLearn AI Educational Platform Interface Preview" loading="lazy">
             </div>
             <div class="proj-badge"><b><i>NEUROLEARN AI</i></b></div>
           </div>
@@ -541,7 +556,7 @@
         <div class="proj-inner">
           <div class="proj-front">
             <div class="proj-img">
-              <img src="assets/SE.png" alt="SportEquity Preview" style="transform: scale(0.9); object-fit: contain;">
+              <img src="assets/SE.png" alt="SportEquity Centralized Athletic Platform Preview" style="transform: scale(0.9); object-fit: contain;">
             </div>
             <div class="proj-badge"><b><i>SPORTEQUITY</i></b></div>
           </div>
